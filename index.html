@@ -39,7 +39,7 @@
 
     /* ── Header ────────────────────────────────────── */
     .header { text-align: center; margin-bottom: 52px; }
-    .header-eyebrow { font-size: 11px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--purple); margin-bottom: 10px; }
+    .header-eyebrow { font-size: 14px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--purple); margin-bottom: 10px; }
     .header h1 { font-size: 34px; font-weight: 700; letter-spacing: -.02em; }
     .header p { color: var(--text2); margin-top: 8px; max-width: 460px; margin-left: auto; margin-right: auto; }
 
@@ -238,7 +238,7 @@
 <body>
 
 <header class="header">
-  <div class="header-eyebrow">Yahoo Fantasy Basketball</div>
+  <div class="header-eyebrow">tRPiF</div>
   <h1>Dynasty Draft Lottery</h1>
   <p>Configure your league odds, visualize the draw bag, and run a seeded, auditable lottery — no terminal required.</p>
 </header>
@@ -438,9 +438,15 @@
 
     <div class="card hidden" id="reveal-card">
       <div class="card-title" style="text-align:center;font-size:22px;letter-spacing:-.015em">The Results Are In</div>
-      <div class="card-sub" style="text-align:center">Revealed from last pick to first.</div>
-      <div id="rball-stage" class="rball-stage"></div>
-      <div id="reveal-list" style="display:flex;flex-direction:column;gap:10px;margin-top:28px"></div>
+      <div class="card-sub" style="text-align:center">Click to reveal picks from last to first.</div>
+      <div id="reveal-bag-section" class="hidden" style="margin-top:20px">
+        <div class="section-label" id="reveal-bag-label">Lottery Pick</div>
+        <div class="bag-wrap"><div id="reveal-bag" class="bag-grid"></div></div>
+      </div>
+      <div style="text-align:center;margin:24px 0 8px">
+        <button class="btn btn-primary btn-lg" id="reveal-next-btn" onclick="revealNext()">&#9654; Begin Reveal</button>
+      </div>
+      <div id="reveal-list" style="display:flex;flex-direction:column;gap:10px;margin-top:8px"></div>
       <div class="action-row" style="margin-top:28px">
         <button class="btn btn-ghost2" onclick="copyResults()">Copy Results</button>
         <button class="btn btn-primary" onclick="location.reload()">New Lottery</button>
@@ -1059,73 +1065,124 @@ function go4() {
   setStep(4);
 }
 
+// ── Reveal state ───────────────────────────────────────────────────────────────
+let _revealOrder = [], _revealIdx = 0, _pendingLotRank = null;
+
 // ── Reveal ─────────────────────────────────────────────────────────────────────
 function startReveal() {
   $('ready-card').classList.add('hidden');
   $('reveal-card').classList.remove('hidden');
-  const list = $('reveal-list'); list.innerHTML = '';
-  const stage = $('rball-stage');
-  stage.classList.remove('active');
-  stage.innerHTML = '';
+  $('reveal-list').innerHTML = '';
+  $('reveal-bag-section').classList.add('hidden');
 
-  const revealOrder = [...S.result].reverse();
-  let i = 0;
+  _revealOrder = [...S.result].reverse();
+  _revealIdx = 0;
+  _pendingLotRank = null;
 
-  function addRevealItem(rank, pickNum, isLottery) {
-    const color = tc(rank);
-    const item = document.createElement('div');
-    item.className = 'reveal-item';
-    item.style.background = isLottery ? color : 'var(--bg)';
-    item.style.color      = isLottery ? '#fff' : 'var(--text)';
-    item.innerHTML = `
-      <div class="reveal-num" style="color:${isLottery ? 'rgba(255,255,255,.45)' : 'var(--text3)'}">${pickNum}</div>
-      <div class="reveal-info">
-        <div class="rlbl" style="${isLottery ? 'color:rgba(255,255,255,.6)' : 'color:var(--text2)'}">
-          ${isLottery ? '🎰 Lottery Pick' : 'Pick'} #${pickNum}
-        </div>
-        <div class="rname">${teamDisplay(rank)}</div>
-        ${gmDisplay(rank) ? `<div class="rgm">${gmDisplay(rank)}</div>` : ''}
-      </div>`;
-    list.insertBefore(item, list.firstChild);
+  const btn = $('reveal-next-btn');
+  btn.textContent = '▶ Begin Reveal';
+  btn.classList.remove('hidden');
+}
+
+function revealNext() {
+  const btn = $('reveal-next-btn');
+
+  // Phase 2 for a lottery pick: bag is visible, click to reveal the team card
+  if (_pendingLotRank !== null) {
+    const rank = _pendingLotRank;
+    const pickNum = S.result.indexOf(rank) + 1;
+    _pendingLotRank = null;
+    $('reveal-bag-section').classList.add('hidden');
+    addRevealItemEl(rank, pickNum, true);
+    if (_revealIdx >= _revealOrder.length) {
+      btn.classList.add('hidden');
+    } else {
+      btn.textContent = 'Next →';
+    }
+    return;
   }
 
-  function showNext() {
-    if (i >= revealOrder.length) return;
-    const rank = revealOrder[i];
-    const pickNum = S.result.indexOf(rank) + 1;
-    const isLottery = pickNum <= S.numLot;
-    const color = tc(rank);
+  if (_revealIdx >= _revealOrder.length) return;
 
-    if (isLottery) {
-      // Show bouncing ball first, then reveal team card
-      stage.innerHTML = '';
-      const ballEl = document.createElement('div');
-      ballEl.className = 'rball win-anim';
-      ballEl.textContent = rank;
-      ballEl.style.cssText = `background:${color};box-shadow:0 0 0 4px #fff,0 0 0 9px ${color}80;`;
-      stage.appendChild(ballEl);
-      stage.classList.add('active');
+  const rank = _revealOrder[_revealIdx++];
+  const pickNum = S.result.indexOf(rank) + 1;
+  const isLottery = pickNum <= S.numLot;
 
-      // After ball animation settles, show the pick card
-      setTimeout(() => {
-        addRevealItem(rank, pickNum, isLottery);
-        // Collapse ball stage, then proceed to next pick
-        setTimeout(() => {
-          stage.classList.remove('active');
-          setTimeout(() => { stage.innerHTML = ''; }, 300);
-          i++;
-          setTimeout(showNext, 1400);
-        }, 800);
-      }, 750);
+  if (isLottery) {
+    // Phase 1: show the mini draw-bag with the winning ballot highlighted
+    showRevealBag(pickNum, rank);
+    _pendingLotRank = rank;
+    btn.textContent = `🏀 Reveal Pick #${pickNum} →`;
+  } else {
+    addRevealItemEl(rank, pickNum, false);
+    if (_revealIdx >= _revealOrder.length) {
+      btn.classList.add('hidden');
     } else {
-      stage.classList.remove('active');
-      stage.innerHTML = '';
-      addRevealItem(rank, pickNum, isLottery);
-      i++;
-      setTimeout(showNext, 420);
+      btn.textContent = 'Next →';
     }
   }
-  showNext();
+}
+
+function showRevealBag(pickNum, rank) {
+  const bagEl = $('reveal-bag');
+  bagEl.innerHTML = '';
+  const winBallIdx = S.drawnPicks[pickNum - 1].ballIdx;
+  const color = tc(rank);
+  let winBallEl = null;
+
+  S.draw.forEach((val, i) => {
+    const b = document.createElement('div');
+    b.className = 'ball' + (val === 'void' ? ' void' : '');
+    if (val === 'void') {
+      b.textContent = '∅';
+    } else {
+      b.style.background = tc(val);
+      b.textContent = val;
+      const name = teamDisplay(val), gm = gmDisplay(val), lots = S.adjustedOdds[val] || 0;
+      b.title = `${name}${gm ? ' · ' + gm : ''} — ${lots} lots`;
+    }
+    if (i === winBallIdx) {
+      winBallEl = b;
+      b.style.boxShadow = `0 0 0 2px #fff, 0 0 0 5px ${color}`;
+    } else if (val !== 'void') {
+      b.classList.add('dimmed');
+    }
+    bagEl.appendChild(b);
+  });
+
+  $('reveal-bag-label').textContent = `Pick #${pickNum} — The Winning Ballot`;
+  $('reveal-bag-section').classList.remove('hidden');
+
+  // Trigger the bounce animation on the winning ball after it's visible
+  if (winBallEl) {
+    requestAnimationFrame(() => {
+      winBallEl.classList.add('win-anim');
+      setTimeout(() => {
+        winBallEl.classList.remove('win-anim');
+        winBallEl.classList.add('drawn-winner');
+        winBallEl.style.boxShadow = `0 0 0 2px #fff, 0 0 0 5px ${color}`;
+      }, 700);
+    });
+  }
+}
+
+function addRevealItemEl(rank, pickNum, isLottery) {
+  const list = $('reveal-list');
+  const color = tc(rank);
+  const item = document.createElement('div');
+  item.className = 'reveal-item';
+  item.style.background = isLottery ? color : 'var(--bg)';
+  item.style.color      = isLottery ? '#fff' : 'var(--text)';
+  item.innerHTML = `
+    <div class="reveal-num" style="color:${isLottery ? 'rgba(255,255,255,.45)' : 'var(--text3)'}">${pickNum}</div>
+    <div class="reveal-info">
+      <div class="rlbl" style="${isLottery ? 'color:rgba(255,255,255,.6)' : 'color:var(--text2)'}">
+        ${isLottery ? '🎰 Lottery Pick' : 'Pick'} #${pickNum}
+      </div>
+      <div class="rname">${teamDisplay(rank)}</div>
+      ${gmDisplay(rank) ? `<div class="rgm">${gmDisplay(rank)}</div>` : ''}
+    </div>`;
+  list.insertBefore(item, list.firstChild);
 }
 
 function copyResults() {
