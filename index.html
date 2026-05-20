@@ -435,10 +435,23 @@ const LEAGUE_CONFIG = {
 // Stores season-specific data: who finished where, consolation results, penalties.
 // Populated via "Save Results" and reloaded via "Load Results" each season.
 const RESULTS_CONFIG_DEFAULT = {
-  season: "",
-  teamRanks: {},         // rank (str) → { gm, team }
-  consolationResults: {}, // place (str) → team rank
-  penalties: []           // [{ rank, amount }]
+  season: "2024-25",
+  teamRanks: {
+    "1":  { gm: "John",     team: "G.O.A.T.S" },
+    "2":  { gm: "Rahul",    team: "Fishing Poles Equipped" },
+    "3":  { gm: "Sinan",    team: "I am so happy" },
+    "4":  { gm: "Sunny",    team: "Sunny D and the Capri Suns" },
+    "5":  { gm: "Dan",      team: "Scarborough Shooting Starz" },
+    "6":  { gm: "Warren",   team: "W" },
+    "7":  { gm: "Andrew",   team: "Monk Mode" },
+    "8":  { gm: "Sudhish",  team: "sai's Impressive Team" },
+    "9":  { gm: "Sean",     team: "Benchwarmers" },
+    "10": { gm: "Eric",     team: "The JAVALE MCGEES" },
+    "11": { gm: "Justin J", team: "Team Hospital" },
+    "12": { gm: "Justin H", team: "Multi-armed Bandits" }
+  },
+  consolationResults: { "1": 10, "2": 12, "3": 7 },
+  penalties: []
 };
 
 // ── Palette ────────────────────────────────────────────────────────────────────
