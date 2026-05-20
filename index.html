@@ -419,18 +419,27 @@
 // Edit this object to match your league. This is the hardcoded default.
 // Click "Save Config" at the end of Step 2 to persist changes to your browser.
 const LEAGUE_CONFIG = {
-  name: "My Dynasty League",
+  name: "Dynasty Fantasy Basketball",
   numTeams: 12,
   numLot: 3,
   numLotTeams: 6,
-  // Ballot counts by regular season rank (rank = finish position, higher = worse)
-  baseOdds: { "12": 40, "11": 15, "10": 9, "9": 8, "8": 7, "7": 6 },
+  // 12th–7th place baseline odds (ballots out of 100; 30 slots will be void)
+  baseOdds: { "12": 30, "11": 20, "10": 10, "9": 5, "8": 3, "7": 2 },
   consolationCount: 3,
-  consolationPrizes: [5, 3, 2],  // [1st place bonus, 2nd, 3rd, ...]
-  // Team roster — used as quick-fill options when assigning names to ranks each season
+  consolationPrizes: [13, 10, 7],  // consolation 1st / 2nd / 3rd bonus lots
   teams: [
-    // { gm: "GM Name", team: "Team Name" },
-    // Add all your league's teams here
+    { gm: "Rahul",    team: "Fishing Poles Equipped" },
+    { gm: "Dan",      team: "Scarborough Shooting Starz" },
+    { gm: "Sean",     team: "Benchwarmers" },
+    { gm: "Justin H", team: "Multi-armed Bandits" },
+    { gm: "John",     team: "G.O.A.T.S" },
+    { gm: "Justin J", team: "Team Hospital" },
+    { gm: "Andrew",   team: "Monk Mode" },
+    { gm: "Sudhish",  team: "sai's Impressive Team" },
+    { gm: "Eric",     team: "The JAVALE MCGEES" },
+    { gm: "Warren",   team: "W" },
+    { gm: "Sunny",    team: "Sunny D and the Capri Suns" },
+    { gm: "Sinan",    team: "I am so happy" },
   ]
 };
 
