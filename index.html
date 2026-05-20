@@ -620,14 +620,12 @@ function getStoredResultsConfig() {
 }
 
 function loadResultsConfig() {
-  const cfg = getStoredResultsConfig();
-  if (!cfg) {
-    showResultsBannerMsg('No saved results found. Fill in the season data below and click Save Results to store it.', false);
-    return;
-  }
+  const stored = getStoredResultsConfig();
+  const cfg = stored || RESULTS_CONFIG_DEFAULT;
   applyResultsConfig(cfg);
   const label = cfg.season ? `Season ${cfg.season} results loaded.` : 'Results loaded.';
-  showResultsBannerMsg(`✓ ${label} Team assignments, consolation results, and penalties pre-filled.`, true);
+  const source = stored ? '' : ' (defaults)';
+  showResultsBannerMsg(`✓ ${label}${source} Team assignments, consolation results, and penalties pre-filled.`, true);
   $('load-results-btn').textContent = '✓ Loaded';
   $('load-results-btn').style.background = 'var(--green)';
   $('load-results-btn').style.color = '#fff';
