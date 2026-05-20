@@ -36,107 +36,63 @@
     }
 
     /* ── Header ────────────────────────────────────── */
-    .header {
-      text-align: center;
-      margin-bottom: 52px;
-    }
+    .header { text-align: center; margin-bottom: 52px; }
     .header-eyebrow {
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      color: var(--purple);
-      margin-bottom: 10px;
+      font-size: 11px; font-weight: 600; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--purple); margin-bottom: 10px;
     }
-    .header h1 {
-      font-size: 34px;
-      font-weight: 700;
-      letter-spacing: -.02em;
-    }
-    .header p {
-      color: var(--text2);
-      margin-top: 8px;
-      max-width: 460px;
-      margin-left: auto;
-      margin-right: auto;
-    }
+    .header h1 { font-size: 34px; font-weight: 700; letter-spacing: -.02em; }
+    .header p { color: var(--text2); margin-top: 8px; max-width: 460px; margin-left: auto; margin-right: auto; }
 
     /* ── Step progress ─────────────────────────────── */
-    .progress {
-      display: flex;
-      align-items: flex-start;
-      justify-content: center;
-      max-width: 520px;
-      margin: 0 auto 44px;
-    }
-    .step-item {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 7px;
-      position: relative;
-    }
+    .progress { display: flex; align-items: flex-start; justify-content: center; max-width: 520px; margin: 0 auto 44px; }
+    .step-item { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 7px; position: relative; }
     .step-item:not(:last-child)::after {
-      content: '';
-      position: absolute;
-      top: 13px;
-      left: calc(50% + 16px);
-      right: calc(-50% + 16px);
-      height: 1px;
-      background: var(--border);
-      transition: background .4s;
+      content: ''; position: absolute; top: 13px;
+      left: calc(50% + 16px); right: calc(-50% + 16px);
+      height: 1px; background: var(--border); transition: background .4s;
     }
     .step-item.done:not(:last-child)::after { background: var(--purple); }
     .step-dot {
-      width: 26px; height: 26px;
-      border-radius: 50%;
+      width: 26px; height: 26px; border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
       font-size: 11px; font-weight: 700;
-      background: var(--border);
-      color: var(--text2);
-      transition: background .3s, color .3s;
-      position: relative; z-index: 1;
+      background: var(--border); color: var(--text2);
+      transition: background .3s, color .3s; position: relative; z-index: 1;
     }
     .step-item.active .step-dot { background: var(--purple); color: #fff; }
     .step-item.done .step-dot   { background: var(--purple); color: #fff; }
-    .step-label {
-      font-size: 11px;
-      color: var(--text2);
-      white-space: nowrap;
-    }
+    .step-label { font-size: 11px; color: var(--text2); white-space: nowrap; }
     .step-item.active .step-label { color: var(--purple); font-weight: 600; }
 
     /* ── Layout ────────────────────────────────────── */
     .wrap { max-width: 780px; margin: 0 auto; }
 
     /* ── Cards ─────────────────────────────────────── */
-    .card {
-      background: var(--card);
-      border-radius: var(--r);
-      box-shadow: var(--shadow);
-      padding: 32px;
-      margin-bottom: 20px;
-    }
+    .card { background: var(--card); border-radius: var(--r); box-shadow: var(--shadow); padding: 32px; margin-bottom: 20px; }
     .card-title { font-size: 17px; font-weight: 600; margin-bottom: 3px; }
     .card-sub   { font-size: 13px; color: var(--text2); margin-bottom: 26px; }
+
+    /* ── Config banner ──────────────────────────────── */
+    .config-banner {
+      display: flex; align-items: center; justify-content: space-between;
+      background: var(--purple-faint); border-radius: var(--r-sm);
+      padding: 12px 16px; margin-bottom: 24px; gap: 12px;
+    }
+    .config-banner-text { font-size: 13px; color: var(--purple); }
+    .config-banner-text strong { font-weight: 600; }
+    .config-banner.loaded { background: var(--green-faint); }
+    .config-banner.loaded .config-banner-text { color: #065f46; }
 
     /* ── Forms ─────────────────────────────────────── */
     .field { margin-bottom: 20px; }
     .field label { display: block; font-size: 13px; font-weight: 500; margin-bottom: 6px; }
     .field .hint { font-size: 12px; color: var(--text2); margin-top: 4px; }
     input[type="number"], input[type="text"], select {
-      font-family: inherit;
-      font-size: 14px;
-      color: var(--text);
-      background: #fff;
-      border: 1.5px solid var(--border);
-      border-radius: var(--r-sm);
-      padding: 0 12px;
-      height: 40px;
-      outline: none;
-      transition: border-color .2s;
-      width: 100%;
+      font-family: inherit; font-size: 14px; color: var(--text);
+      background: #fff; border: 1.5px solid var(--border);
+      border-radius: var(--r-sm); padding: 0 12px;
+      height: 40px; outline: none; transition: border-color .2s; width: 100%;
     }
     input[type="number"]:focus, input[type="text"]:focus, select:focus { border-color: var(--purple); }
     .input-sm { width: 72px !important; }
@@ -147,8 +103,7 @@
       height: 40px; padding: 0 20px;
       border: none; border-radius: var(--r-sm);
       font-family: inherit; font-size: 14px; font-weight: 500;
-      cursor: pointer; transition: background .15s, transform .1s;
-      white-space: nowrap;
+      cursor: pointer; transition: background .15s, transform .1s; white-space: nowrap;
     }
     .btn:active { transform: scale(.97); }
     .btn-primary  { background: var(--purple); color: #fff; }
@@ -157,19 +112,20 @@
     .btn-ghost2:hover { background: #ddd9f8; }
     .btn-green  { background: var(--green); color: #fff; }
     .btn-green:hover  { background: #059669; }
+    .btn-outline { background: #fff; color: var(--text2); border: 1.5px solid var(--border); }
+    .btn-outline:hover { border-color: var(--purple); color: var(--purple); }
     .btn-lg { height: 48px; padding: 0 28px; font-size: 15px; }
     .btn:disabled { opacity: .45; cursor: not-allowed; pointer-events: none; }
 
     /* ── Utility ───────────────────────────────────── */
     .hidden { display: none !important; }
     .err { font-size: 12px; color: #ef4444; margin-top: 4px; }
-    .divider { height: 1px; background: var(--border); margin: 24px 0; }
     .section-label {
-      font-size: 11px; font-weight: 600;
-      text-transform: uppercase; letter-spacing: .1em;
-      color: var(--text2); margin-bottom: 12px; margin-top: 24px;
+      font-size: 11px; font-weight: 600; text-transform: uppercase;
+      letter-spacing: .1em; color: var(--text2); margin-bottom: 12px; margin-top: 24px;
     }
-    .action-row { display: flex; justify-content: flex-end; gap: 10px; margin-top: 28px; }
+    .action-row { display: flex; justify-content: flex-end; gap: 10px; margin-top: 28px; align-items: center; }
+    .action-row-left { margin-right: auto; }
 
     /* ── Tables ────────────────────────────────────── */
     .tbl { width: 100%; border-collapse: collapse; }
@@ -190,71 +146,49 @@
     .bar-lbl { font-size: 12px; color: var(--text2); width: 64px; text-align: right; flex-shrink: 0; }
     .bar-track { flex: 1; height: 22px; background: var(--bg); border-radius: 5px; overflow: hidden; }
     .bar-fill  { height: 100%; border-radius: 5px; transition: width .45s ease; min-width: 2px; }
-    .bar-info  { display: flex; flex-direction: column; align-items: flex-end; width: 72px; flex-shrink: 0; gap: 2px; }
+    .bar-info  { display: flex; flex-direction: column; align-items: flex-end; width: 72px; flex-shrink: 0; gap: 1px; }
     .bar-count { font-size: 12px; font-weight: 600; color: var(--text); }
     .bar-chance{ font-size: 11px; color: var(--text2); }
 
-    /* ── Step 3 two-column layout ──────────────────── */
-    .s3-grid { display: grid; grid-template-columns: 252px 1fr; gap: 20px; align-items: start; }
-    .s3-sticky { position: sticky; top: 24px; }
-    @media (max-width: 680px) { .s3-grid { grid-template-columns: 1fr; } .s3-sticky { position: static; } }
-
     /* ── Ballot bag ─────────────────────────────────── */
-    .bag-wrap {
-      background: var(--bg);
-      border-radius: var(--r-sm);
-      padding: 18px;
-    }
-    .bag-grid {
-      display: grid;
-      grid-template-columns: repeat(10, 1fr);
-      gap: 5px;
-    }
+    .bag-wrap { background: var(--bg); border-radius: var(--r-sm); padding: 18px; }
+    .bag-grid { display: grid; grid-template-columns: repeat(10, 1fr); gap: 5px; }
     .ball {
-      aspect-ratio: 1;
-      border-radius: 50%;
+      aspect-ratio: 1; border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
-      font-size: 9px; font-weight: 700;
-      color: rgba(255,255,255,.9);
-      cursor: default;
-      transition: transform .15s, opacity .3s;
+      font-size: 9px; font-weight: 700; color: rgba(255,255,255,.9);
+      cursor: default; transition: transform .2s, opacity .3s, box-shadow .2s;
       position: relative;
     }
     .ball.void { background: var(--border) !important; color: var(--text3); }
-    .ball.dimmed { opacity: .2; }
-    .ball.picked {
-      transform: scale(1.25);
-      box-shadow: 0 0 0 2px #fff, 0 0 0 4px currentColor;
-      z-index: 2;
-    }
-    @keyframes pop {
+    .ball.dimmed { opacity: .15; transform: scale(.9); }
+    .ball.drawn-winner { transform: scale(1.2) !important; opacity: 1 !important; z-index: 3; }
+    @keyframes win-pop {
       0%   { transform: scale(1); }
-      40%  { transform: scale(1.55); }
-      100% { transform: scale(1.25); }
+      25%  { transform: scale(1.7); }
+      50%  { transform: scale(1.3); }
+      75%  { transform: scale(1.65); }
+      100% { transform: scale(1.2); }
     }
-    .ball.popping { animation: pop .4s ease forwards; }
+    .ball.win-anim { animation: win-pop .65s ease forwards; }
+    .ball[title]:hover { transform: scale(1.35) !important; z-index: 10; cursor: help; }
 
     /* ── Pick cards ─────────────────────────────────── */
     .picks { display: flex; flex-direction: column; gap: 10px; margin-top: 20px; }
     .pick-card {
       display: flex; align-items: center; gap: 16px;
-      padding: 14px 18px;
-      border-radius: var(--r-sm);
-      border-left: 4px solid transparent;
-      background: var(--bg);
-      opacity: 0;
-      transform: translateY(10px);
+      padding: 14px 18px; border-radius: var(--r-sm);
+      border-left: 4px solid transparent; background: var(--bg);
+      opacity: 0; transform: translateY(10px);
       transition: opacity .35s ease, transform .35s ease;
     }
     .pick-card.show { opacity: 1; transform: none; }
     .pick-num { font-size: 22px; font-weight: 700; min-width: 28px; }
     .pick-meta { flex: 1; }
-    .pick-meta .lbl { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: var(--text2); }
+    .pick-meta .lbl  { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: var(--text2); }
     .pick-meta .name { font-size: 16px; font-weight: 600; margin-top: 1px; }
-    .pick-badge {
-      font-size: 12px; font-weight: 500;
-      padding: 3px 11px; border-radius: 20px;
-    }
+    .pick-meta .gm   { font-size: 12px; color: var(--text2); margin-top: 1px; }
+    .pick-badge { font-size: 12px; font-weight: 500; padding: 3px 11px; border-radius: 20px; white-space: nowrap; }
 
     /* ── Stats row ──────────────────────────────────── */
     .stats { display: flex; gap: 14px; margin-bottom: 24px; }
@@ -263,32 +197,28 @@
     .stat-lbl { font-size: 12px; color: var(--text2); margin-top: 1px; }
 
     /* ── Seed area ──────────────────────────────────── */
-    .seed-box {
-      background: var(--purple-faint);
-      border-radius: var(--r-sm);
-      padding: 20px;
-      margin-bottom: 24px;
-    }
+    .seed-box { background: var(--purple-faint); border-radius: var(--r-sm); padding: 20px; margin-bottom: 24px; }
     .seed-box label { font-size: 13px; font-weight: 500; display: block; margin-bottom: 8px; }
     .seed-row { display: flex; gap: 10px; }
     .seed-row input { flex: 1; }
 
     /* ── Penalty row ─────────────────────────────────── */
-    .pen-row {
-      display: flex; align-items: center; gap: 8px; margin-bottom: 8px;
-    }
+    .pen-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
     .pen-row label { font-size: 12px; color: var(--text2); white-space: nowrap; }
     .pen-add {
-      width: 100%; padding: 9px 16px;
-      border: 1.5px dashed var(--border);
-      border-radius: var(--r-sm);
-      background: none; font-family: inherit; font-size: 13px;
-      color: var(--text2); cursor: pointer; margin-top: 8px;
+      width: 100%; padding: 9px 16px; border: 1.5px dashed var(--border);
+      border-radius: var(--r-sm); background: none; font-family: inherit;
+      font-size: 13px; color: var(--text2); cursor: pointer; margin-top: 8px;
       transition: border-color .2s, color .2s;
     }
     .pen-add:hover { border-color: var(--purple); color: var(--purple); }
     .btn-x { background: none; border: none; color: var(--text3); font-size: 18px; line-height: 1; cursor: pointer; padding: 0 4px; }
     .btn-x:hover { color: #ef4444; }
+
+    /* ── Step 3 two-column layout ──────────────────── */
+    .s3-grid { display: grid; grid-template-columns: 252px 1fr; gap: 20px; align-items: start; }
+    .s3-sticky { position: sticky; top: 24px; }
+    @media (max-width: 680px) { .s3-grid { grid-template-columns: 1fr; } .s3-sticky { position: static; } }
 
     /* ── Reveal cards ────────────────────────────────── */
     @keyframes fadeUp {
@@ -297,16 +227,16 @@
     }
     .reveal-item {
       display: flex; align-items: center; gap: 20px;
-      padding: 18px 24px;
-      border-radius: var(--r-sm);
+      padding: 18px 24px; border-radius: var(--r-sm);
       animation: fadeUp .45s ease forwards;
     }
     .reveal-num { font-size: 30px; font-weight: 700; min-width: 36px; }
-    .reveal-info .rlbl { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .1em; }
+    .reveal-info .rlbl  { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .1em; }
     .reveal-info .rname { font-size: 20px; font-weight: 600; margin-top: 2px; }
+    .reveal-info .rgm   { font-size: 13px; margin-top: 2px; opacity: .75; }
 
-    /* ── Ballot bag tooltip ──────────────────────────── */
-    .ball[title]:hover { transform: scale(1.4) !important; z-index: 10; }
+    /* ── Quick-fill select ───────────────────────────── */
+    select.qf { height: 32px; font-size: 12px; padding: 0 8px; width: auto; color: var(--text2); }
   </style>
 </head>
 <body>
@@ -317,24 +247,11 @@
   <p>Configure your league odds, visualize the draw bag, and run a seeded, auditable lottery — no terminal required.</p>
 </header>
 
-<!-- Progress -->
-<div class="progress" id="progress">
-  <div class="step-item active" data-s="1">
-    <div class="step-dot">1</div>
-    <div class="step-label">Configure</div>
-  </div>
-  <div class="step-item" data-s="2">
-    <div class="step-dot">2</div>
-    <div class="step-label">Set Odds</div>
-  </div>
-  <div class="step-item" data-s="3">
-    <div class="step-dot">3</div>
-    <div class="step-label">Draw</div>
-  </div>
-  <div class="step-item" data-s="4">
-    <div class="step-dot">4</div>
-    <div class="step-label">Reveal</div>
-  </div>
+<div class="progress">
+  <div class="step-item active" data-s="1"><div class="step-dot">1</div><div class="step-label">Configure</div></div>
+  <div class="step-item" data-s="2"><div class="step-dot">2</div><div class="step-label">Odds & Teams</div></div>
+  <div class="step-item" data-s="3"><div class="step-dot">3</div><div class="step-label">Draw</div></div>
+  <div class="step-item" data-s="4"><div class="step-dot">4</div><div class="step-label">Reveal</div></div>
 </div>
 
 <div class="wrap">
@@ -343,29 +260,32 @@
   <div id="s1">
     <div class="card">
       <div class="card-title">League Configuration</div>
-      <div class="card-sub">Tell us about your dynasty league structure to get started.</div>
+      <div class="card-sub">Set up the basics, or load your saved league config for one-click setup.</div>
+
+      <div id="config-banner" class="config-banner">
+        <div class="config-banner-text"><strong id="config-name">League config available</strong><br><span id="config-desc" style="opacity:.8"></span></div>
+        <button class="btn btn-ghost2" id="load-btn" onclick="loadConfig()">Load Config</button>
+      </div>
 
       <div class="field">
         <label for="f-teams">How many teams are in your league?</label>
         <input type="number" id="f-teams" min="2" max="30" placeholder="e.g. 12">
         <div class="hint">Between 2 and 30.</div>
       </div>
-
       <div class="field">
         <label for="f-lot">How many picks will be awarded in the lottery?</label>
-        <input type="number" id="f-lot" min="1" placeholder="e.g. 5">
+        <input type="number" id="f-lot" min="1" placeholder="e.g. 3">
         <div class="hint">The number of top picks determined by the draw.</div>
       </div>
-
       <div class="field">
         <label for="f-elig">How many teams are lottery-eligible?</label>
-        <input type="number" id="f-elig" min="2" placeholder="e.g. 8">
+        <input type="number" id="f-elig" min="2" placeholder="e.g. 6">
         <div class="hint">Must exceed the number of lottery picks.</div>
       </div>
 
       <div id="err1" class="err hidden"></div>
       <div class="action-row">
-        <button class="btn btn-primary" onclick="go2()">Set Up Odds →</button>
+        <button class="btn btn-primary" onclick="go2()">Set Odds & Teams →</button>
       </div>
     </div>
   </div>
@@ -373,10 +293,9 @@
   <!-- ══════════ STEP 2 ══════════ -->
   <div id="s2" class="hidden">
 
-    <!-- Base odds -->
     <div class="card">
       <div class="card-title">Base Odds</div>
-      <div class="card-sub">Assign ballots to each lottery-eligible team. The 100-ballot draw bag is proportional to these numbers — start from last place.</div>
+      <div class="card-sub">Assign ballots to each lottery-eligible team. The draw bag has 100 total slots — start from last place.</div>
       <table class="tbl">
         <thead><tr><th>Team (Regular Season Rank)</th><th>Ballots</th></tr></thead>
         <tbody id="base-tbody"></tbody>
@@ -384,20 +303,16 @@
       <div id="total-line" style="margin-top:12px;font-size:13px;color:var(--text2)"></div>
     </div>
 
-    <!-- Consolation prizes -->
     <div class="card">
       <div class="card-title">Consolation Prize Odds</div>
-      <div class="card-sub">Teams that finish well in the consolation playoff earn bonus ballots. Leave at 0 if your league doesn't use this.</div>
-
+      <div class="card-sub">Teams that finish well in the consolation playoff earn bonus ballots.</div>
       <div class="field">
-        <label for="f-prizes">How many teams earn bonus ballots from consolation playoffs?</label>
+        <label for="f-prizes">How many teams earn bonus ballots?</label>
         <input type="number" id="f-prizes" min="0" placeholder="e.g. 3" oninput="buildPrizeForms()">
       </div>
-
       <div id="prize-forms"></div>
     </div>
 
-    <!-- Penalties -->
     <div class="card">
       <div class="card-title">Tanking Penalties <span style="font-size:13px;font-weight:400;color:var(--text2)">(optional)</span></div>
       <div class="card-sub">Remove ballots from teams penalized for illegal tanking.</div>
@@ -405,22 +320,30 @@
       <button class="pen-add" onclick="addPen()">+ Add a penalty</button>
     </div>
 
-    <!-- Live visualization -->
+    <!-- Team Names — NEW: moved here from Step 4 -->
+    <div class="card">
+      <div class="card-title">Team Names</div>
+      <div class="card-sub">Assign each team's GM and team name to their regular season rank before the draw. Use the quick-fill to load from your saved roster.</div>
+      <table class="tbl">
+        <thead><tr><th>Rank</th><th>GM Name</th><th>Team Name</th><th style="width:130px">Quick-fill</th></tr></thead>
+        <tbody id="names-tbody"></tbody>
+      </table>
+    </div>
+
     <div class="card">
       <div class="card-title">Live Ballot Bag Preview</div>
-      <div class="card-sub">Updates in real time as you configure odds above. Each colored dot is one ballot in the 100-ballot draw bag.</div>
-
+      <div class="card-sub">Updates in real time. Each dot is one ballot in the 100-ballot draw bag.</div>
       <div class="section-label" style="margin-top:0">Odds by Team</div>
       <div id="odds-bars" class="bars"></div>
-
       <div class="section-label">The Draw Bag — 100 Ballots</div>
-      <div class="bag-wrap">
-        <div id="bag-preview" class="bag-grid"></div>
-      </div>
+      <div class="bag-wrap"><div id="bag-preview" class="bag-grid"></div></div>
     </div>
 
     <div id="err2" class="err hidden" style="margin-bottom:14px"></div>
     <div class="action-row">
+      <div class="action-row-left">
+        <button class="btn btn-outline" onclick="saveConfig()">Save Config</button>
+      </div>
       <button class="btn btn-ghost2" onclick="go1()">← Back</button>
       <button class="btn btn-primary" onclick="go3()">Run the Lottery →</button>
     </div>
@@ -430,7 +353,6 @@
   <div id="s3" class="hidden">
     <div class="s3-grid">
 
-      <!-- Sidebar: locked odds summary -->
       <div class="s3-sticky">
         <div class="card" style="padding:24px 20px;margin-bottom:0">
           <div class="card-title" style="font-size:15px">Odds Summary</div>
@@ -440,14 +362,11 @@
         </div>
       </div>
 
-      <!-- Main: draw interaction + results -->
       <div>
         <div class="card">
           <div class="card-title">The Draw</div>
           <div class="card-sub">Enter any integer as a random seed. Share it with your league so anyone can verify the result is fair and reproducible.</div>
-
           <div class="stats" id="draw-stats"></div>
-
           <div class="seed-box">
             <label for="seed-inp">Random Seed — any integer (e.g. 42, 1738, 99999)</label>
             <div class="seed-row">
@@ -455,21 +374,17 @@
               <button class="btn btn-primary btn-lg" id="draw-btn" onclick="runDraw()">Draw</button>
             </div>
           </div>
-
           <div class="section-label">The Draw Bag — 100 Ballots</div>
-          <div class="bag-wrap">
-            <div id="bag-draw" class="bag-grid"></div>
-          </div>
+          <div class="bag-wrap"><div id="bag-draw" class="bag-grid"></div></div>
         </div>
 
-        <!-- Results (hidden until draw runs) -->
         <div class="card hidden" id="results-card">
           <div class="card-title">Lottery Results</div>
-          <div class="card-sub">Lottery picks are shown by team rank. Assign names in the next step for the full dramatic reveal.</div>
+          <div class="card-sub">The lottery picks are in. Review below, then proceed to the reveal.</div>
           <div id="picks-list" class="picks"></div>
           <div class="action-row" style="margin-top:24px">
             <button class="btn btn-ghost2" onclick="resetDraw()">↺ Draw Again</button>
-            <button class="btn btn-primary" onclick="go4()">Assign Names & Reveal →</button>
+            <button class="btn btn-primary" onclick="go4()">Reveal Draft Order →</button>
           </div>
         </div>
       </div>
@@ -480,23 +395,15 @@
   <!-- ══════════ STEP 4 ══════════ -->
   <div id="s4" class="hidden">
 
-    <!-- Name inputs -->
-    <div class="card" id="names-card">
-      <div class="card-title">Team Names</div>
-      <div class="card-sub">Enter each team's name by their regular season finish. These will appear in the reveal.</div>
-      <table class="tbl">
-        <thead><tr><th>Rank</th><th>Team Name</th></tr></thead>
-        <tbody id="names-tbody"></tbody>
-      </table>
-      <div class="action-row">
-        <button class="btn btn-green btn-lg" onclick="startReveal()">&#127942; Reveal Draft Order</button>
-      </div>
+    <div class="card" id="ready-card" style="text-align:center">
+      <div class="card-title" style="font-size:22px;letter-spacing:-.015em">Ready to Reveal?</div>
+      <div class="card-sub" style="max-width:380px;margin-left:auto;margin-right:auto">Start the dramatic reveal — picks are announced from last to first. Share your screen with the league.</div>
+      <button class="btn btn-green btn-lg" onclick="startReveal()">&#127942; Begin Reveal</button>
     </div>
 
-    <!-- Reveal (hidden until button pressed) -->
     <div class="card hidden" id="reveal-card">
       <div class="card-title" style="text-align:center;font-size:22px;letter-spacing:-.015em">The Results Are In</div>
-      <div class="card-sub" style="text-align:center">Revealed from last pick to first — share this with your league.</div>
+      <div class="card-sub" style="text-align:center">Revealed from last pick to first.</div>
       <div id="reveal-list" style="display:flex;flex-direction:column;gap:10px;margin-top:28px"></div>
       <div class="action-row" style="margin-top:28px">
         <button class="btn btn-ghost2" onclick="copyResults()">Copy Results</button>
@@ -508,13 +415,23 @@
 </div>
 
 <script>
-// ── State ──────────────────────────────────────────────────────────────────────
-const S = {
-  numTeams: 0, numLot: 0, numLotTeams: 0, numPrizes: 0,
-  adjustedOdds: {},  // rank → final ballot count
-  draw: [],          // 100 items (int rank | 'void')
-  result: [],        // full draft order, index 0 = pick #1
-  teamNames: {},     // rank → string
+// ── League Config ──────────────────────────────────────────────────────────────
+// Edit this object to match your league. This is the hardcoded default.
+// Click "Save Config" at the end of Step 2 to persist changes to your browser.
+const LEAGUE_CONFIG = {
+  name: "My Dynasty League",
+  numTeams: 12,
+  numLot: 3,
+  numLotTeams: 6,
+  // Ballot counts by regular season rank (rank = finish position, higher = worse)
+  baseOdds: { "12": 40, "11": 15, "10": 9, "9": 8, "8": 7, "7": 6 },
+  consolationCount: 3,
+  consolationPrizes: [5, 3, 2],  // [1st place bonus, 2nd, 3rd, ...]
+  // Team roster — used as quick-fill options when assigning names to ranks each season
+  teams: [
+    // { gm: "GM Name", team: "Team Name" },
+    // Add all your league's teams here
+  ]
 };
 
 // ── Palette ────────────────────────────────────────────────────────────────────
@@ -543,6 +460,82 @@ function mkRng(seed) {
   };
 }
 
+// ── State ──────────────────────────────────────────────────────────────────────
+const S = {
+  numTeams: 0, numLot: 0, numLotTeams: 0, numPrizes: 0,
+  adjustedOdds: {},   // rank → ballot count
+  draw: [],           // shuffled display/draw pool (100 items: int|'void')
+  drawnPicks: [],     // [{rank, ballIdx}] lottery picks in draw order
+  result: [],         // full draft order [rank...], index 0 = pick #1
+  teamNames: {},      // rank → { gm: string, team: string }
+  _pendingConfig: null,
+};
+
+// ── Config management ──────────────────────────────────────────────────────────
+function getStoredConfig() {
+  try {
+    const s = localStorage.getItem('dynastyLotteryConfig');
+    if (s) return JSON.parse(s);
+  } catch(e) {}
+  return null;
+}
+
+function initConfigBanner() {
+  const stored  = getStoredConfig();
+  const cfg     = stored || LEAGUE_CONFIG;
+  const hasData = cfg.numTeams > 0 || (cfg.teams && cfg.teams.length > 0);
+  if (!hasData) { $('config-banner').classList.add('hidden'); return; }
+  $('config-name').textContent = cfg.name || 'Saved League Config';
+  $('config-desc').textContent = stored
+    ? `Saved config — ${cfg.numTeams} teams, ${cfg.numLot} lottery picks`
+    : `Default config — ${cfg.numTeams} teams, ${cfg.numLot} lottery picks`;
+  if (stored) $('config-banner').classList.add('loaded');
+}
+
+function loadConfig() {
+  const stored = getStoredConfig();
+  const cfg    = stored || LEAGUE_CONFIG;
+
+  $('f-teams').value = cfg.numTeams || '';
+  $('f-lot').value   = cfg.numLot   || '';
+  $('f-elig').value  = cfg.numLotTeams || '';
+
+  S._pendingConfig = cfg;
+  $('load-btn').textContent  = '✓ Loaded';
+  $('load-btn').style.background = 'var(--green)';
+  $('load-btn').style.color      = '#fff';
+  $('config-banner').classList.add('loaded');
+  $('config-name').textContent   = '✓ ' + (cfg.name || 'Config loaded');
+  $('config-desc').textContent   = `${cfg.numTeams} teams · ${cfg.numLot} lottery picks · ${cfg.numLotTeams} eligible`;
+}
+
+function saveConfig() {
+  const adj = computeOdds();
+  const cfg = {
+    name: (getStoredConfig() || LEAGUE_CONFIG).name || 'My Dynasty League',
+    numTeams: S.numTeams,
+    numLot: S.numLot,
+    numLotTeams: S.numLotTeams,
+    baseOdds: {},
+    consolationCount: S.numPrizes,
+    consolationPrizes: [],
+    teams: [],
+  };
+  eligibleRanks().forEach(r => { cfg.baseOdds[String(r)] = parseInt($('b' + r)?.value) || 0; });
+  for (let p = 1; p <= S.numPrizes; p++)
+    cfg.consolationPrizes.push(parseInt($('pz' + p)?.value) || 0);
+  for (let r = 1; r <= S.numTeams; r++) {
+    const gm   = $('gm' + r)?.value.trim() || '';
+    const team = $('tn' + r)?.value.trim() || '';
+    cfg.teams.push({ gm, team });
+  }
+  try {
+    localStorage.setItem('dynastyLotteryConfig', JSON.stringify(cfg));
+    const btn = document.querySelector('[onclick="saveConfig()"]');
+    if (btn) { btn.textContent = '✓ Saved'; setTimeout(() => { btn.textContent = 'Save Config'; }, 2000); }
+  } catch(e) { alert('Could not save config: ' + e.message); }
+}
+
 // ── Helpers ────────────────────────────────────────────────────────────────────
 function $(id) { return document.getElementById(id); }
 function ord(n) {
@@ -551,6 +544,16 @@ function ord(n) {
 }
 function showErr(id, msg) { const e = $(id); e.textContent = msg; e.classList.remove('hidden'); }
 function clearErr(id) { $(id).classList.add('hidden'); }
+
+function teamDisplay(rank) {
+  const t = S.teamNames[rank];
+  if (!t) return `Team Ranked #${rank}`;
+  return t.team || `Team Ranked #${rank}`;
+}
+function gmDisplay(rank) {
+  const t = S.teamNames[rank];
+  return (t && t.gm) ? t.gm : '';
+}
 
 function setStep(n) {
   ['s1','s2','s3','s4'].forEach((id, i) => $(id).classList.toggle('hidden', i + 1 !== n));
@@ -562,7 +565,7 @@ function setStep(n) {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// ── Step 1 → 2 ────────────────────────────────────────────────────────────────
+// ── Step 1 ─────────────────────────────────────────────────────────────────────
 function go1() { setStep(1); }
 
 function go2() {
@@ -583,29 +586,54 @@ function go2() {
   setStep(2);
 }
 
-// ── Step 2 ────────────────────────────────────────────────────────────────────
+// ── Step 2 ─────────────────────────────────────────────────────────────────────
 function eligibleRanks() {
   const arr = [];
   for (let i = 0; i < S.numLotTeams; i++) arr.push(S.numTeams - i);
-  return arr; // [last, last-1, ..., first-eligible]
+  return arr;
 }
 
 function buildStep2() {
+  const cfg = S._pendingConfig;
+
+  // Base odds rows
   const tbody = $('base-tbody');
   tbody.innerHTML = '';
   eligibleRanks().forEach((rank, i) => {
-    const label = i === 0 ? 'Last Place' : i === S.numLotTeams - 1 ? `${ord(S.numLotTeams)} (First Eligible)` : `${ord(i + 1)} from Bottom`;
+    const label = i === 0 ? 'Last Place'
+      : i === S.numLotTeams - 1 ? `${ord(S.numLotTeams)} (First Eligible)`
+      : `${ord(i + 1)} from Bottom`;
+    const prefill = cfg?.baseOdds?.[String(rank)] || cfg?.baseOdds?.[rank] || '';
     const tr = document.createElement('tr');
     tr.innerHTML = `
       <td><div class="chip"><span class="dot" style="background:${tc(rank)}"></span>Rank #${rank} — ${label}</div></td>
-      <td><input type="number" class="input-sm" id="b${rank}" min="0" max="100" placeholder="0" oninput="updateViz()"></td>`;
+      <td><input type="number" class="input-sm" id="b${rank}" min="0" max="100" placeholder="0" value="${prefill}" oninput="updateViz()"></td>`;
     tbody.appendChild(tr);
   });
 
+  // Consolation prizes
   $('f-prizes').value = '';
   $('prize-forms').innerHTML = '';
+  if (cfg?.consolationCount > 0) {
+    $('f-prizes').value = cfg.consolationCount;
+    S.numPrizes = cfg.consolationCount;
+    buildPrizeForms();
+    for (let p = 1; p <= cfg.consolationCount; p++) {
+      const inp = $('pz' + p);
+      if (inp && cfg.consolationPrizes?.[p - 1] != null)
+        inp.value = cfg.consolationPrizes[p - 1];
+    }
+  } else {
+    S.numPrizes = 0;
+  }
+
+  // Penalties
   $('pen-rows').innerHTML = '';
   penId = 0;
+
+  // Team names
+  buildNamesSection(cfg);
+
   updateViz();
 }
 
@@ -634,19 +662,18 @@ function buildPrizeForms() {
   const c = $('prize-forms');
   c.innerHTML = '';
   if (n <= 0) { updateViz(); return; }
-
   const ranks = eligibleRanks();
   c.innerHTML = `
     <div class="section-label">Bonus Ballot Amounts</div>
     <table class="tbl"><thead><tr><th>Consolation Finish</th><th>Bonus Ballots</th></tr></thead>
     <tbody>${Array.from({length: n}, (_, i) => `
-      <tr><td>${ord(i+1)} Place</td>
+      <tr><td>${ord(i + 1)} Place</td>
       <td><input type="number" class="input-sm" id="pz${i+1}" min="0" placeholder="0" oninput="updateViz()"></td></tr>`).join('')}
     </tbody></table>
-    <div class="section-label" style="margin-top:20px">Which Team Won Each Prize? (Regular Season Rank)</div>
-    <table class="tbl"><thead><tr><th>Finish</th><th>Team's Season Rank</th></tr></thead>
+    <div class="section-label" style="margin-top:20px">Which Team Won Each Prize?</div>
+    <table class="tbl"><thead><tr><th>Finish</th><th>Team's Regular Season Rank</th></tr></thead>
     <tbody>${Array.from({length: n}, (_, i) => `
-      <tr><td>${ord(i+1)} Place</td>
+      <tr><td>${ord(i + 1)} Place</td>
       <td><select id="cr${i+1}" onchange="updateViz()" style="width:160px">
         <option value="">Select team…</option>
         ${ranks.map(r => `<option value="${r}">Rank #${r}</option>`).join('')}
@@ -655,20 +682,54 @@ function buildPrizeForms() {
   updateViz();
 }
 
-function computeOdds() {
-  const base = {};
-  eligibleRanks().forEach(r => { base[r] = parseInt($('b' + r)?.value) || 0; });
+function buildNamesSection(cfg) {
+  const roster = cfg?.teams || [];
+  const hasRoster = roster.some(t => t.gm || t.team);
 
-  // Apply consolation prizes
-  const adj = { ...base };
+  const tbody = $('names-tbody');
+  tbody.innerHTML = '';
+
+  const opts = hasRoster
+    ? `<option value="">Quick-fill ▼</option>` +
+      roster.map((t, i) => {
+        const label = [t.team, t.gm].filter(Boolean).join(' · ');
+        const val   = encodeURIComponent(JSON.stringify({ gm: t.gm, team: t.team }));
+        return `<option value="${val}">${label || '(unnamed)'}</option>`;
+      }).join('')
+    : '';
+
+  for (let r = 1; r <= S.numTeams; r++) {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td><div class="chip"><span class="dot" style="background:${tc(r)}"></span>Rank #${r}</div></td>
+      <td><input type="text" id="gm${r}" placeholder="GM name" style="max-width:160px"></td>
+      <td><input type="text" id="tn${r}" placeholder="Team name" style="max-width:180px"></td>
+      <td>${hasRoster ? `<select class="qf" onchange="quickFill(${r},this)">${opts}</select>` : ''}</td>`;
+    tbody.appendChild(tr);
+  }
+}
+
+function quickFill(rank, sel) {
+  if (!sel.value) return;
+  try {
+    const { gm, team } = JSON.parse(decodeURIComponent(sel.value));
+    $('gm' + rank).value   = gm   || '';
+    $('tn' + rank).value   = team || '';
+    sel.value = '';
+  } catch(e) {}
+}
+
+// ── Odds computation ───────────────────────────────────────────────────────────
+function computeOdds() {
+  const adj = {};
+  eligibleRanks().forEach(r => { adj[r] = parseInt($('b' + r)?.value) || 0; });
+
   for (let p = 1; p <= S.numPrizes; p++) {
     const bonus = parseInt($('pz' + p)?.value) || 0;
-    const sel   = $('cr' + p);
-    const rank  = sel ? parseInt(sel.value) : 0;
+    const rank  = parseInt($('cr' + p)?.value)  || 0;
     if (rank && adj[rank] !== undefined) adj[rank] += bonus;
   }
 
-  // Apply penalties
   document.querySelectorAll('[id^="pr"]').forEach(row => {
     const id  = row.id.slice(2);
     const r   = parseInt($('prank' + id)?.value);
@@ -684,7 +745,7 @@ function buildDraw(adj) {
   for (const [r, n] of Object.entries(adj))
     for (let i = 0; i < n; i++) draw.push(parseInt(r));
   while (draw.length < 100) draw.push('void');
-  // Shuffle for visual variety (display only — draw logic uses index-based choice)
+  // Deterministic shuffle for display (seed 42 — independent of user seed)
   const rng = mkRng(42);
   for (let i = draw.length - 1; i > 0; i--) {
     const j = Math.floor(rng() * (i + 1));
@@ -693,6 +754,7 @@ function buildDraw(adj) {
   return draw;
 }
 
+// ── Visualization ──────────────────────────────────────────────────────────────
 function renderOddsBars(containerId, adj) {
   const el = $(containerId);
   if (!el) return;
@@ -716,18 +778,7 @@ function renderOddsBars(containerId, adj) {
   });
 }
 
-function updateViz() {
-  const adj   = computeOdds();
-  const draw  = buildDraw(adj);
-  const total = Object.values(adj).reduce((s, v) => s + v, 0);
-
-  $('total-line').textContent = `Total ballots assigned: ${total} / 100${total > 100 ? ' ⚠️ Exceeds limit!' : total < 100 ? ` (${100 - total} will be void draws)` : ' ✓'}`;
-
-  renderOddsBars('odds-bars', adj);
-  renderBag('bag-preview', draw, {});
-}
-
-function renderBag(containerId, draw, dimmed) {
+function renderBag(containerId, draw) {
   const el = $(containerId);
   el.innerHTML = '';
   draw.forEach((val, i) => {
@@ -738,26 +789,47 @@ function renderBag(containerId, draw, dimmed) {
       b.textContent = '∅';
     } else {
       b.style.background = tc(val);
-      b.style.color = 'rgba(255,255,255,.85)';
       b.textContent = val;
-      b.title = `Team Rank #${val}`;
-      if (dimmed[val]) b.classList.add('dimmed');
+      const name = teamDisplay(val);
+      const gm   = gmDisplay(val);
+      const lots = S.adjustedOdds[val] || 0;
+      b.title = `${name}${gm ? ' · ' + gm : ''} — ${lots} lots`;
     }
     el.appendChild(b);
   });
 }
 
+function updateViz() {
+  const adj  = computeOdds();
+  const draw = buildDraw(adj);
+  const tot  = Object.values(adj).reduce((s, v) => s + v, 0);
+
+  $('total-line').textContent = `Total ballots assigned: ${tot} / 100` +
+    (tot > 100 ? ' ⚠️ Exceeds limit!' : tot < 100 ? ` (${100 - tot} will be void draws)` : ' ✓');
+
+  renderOddsBars('odds-bars', adj);
+  renderBag('bag-preview', draw);
+}
+
 // ── Step 2 → 3 ────────────────────────────────────────────────────────────────
 function go3() {
   clearErr('err2');
-  const adj   = computeOdds();
-  const total = Object.values(adj).reduce((s, v) => s + v, 0);
+  const adj = computeOdds();
+  const tot = Object.values(adj).reduce((s, v) => s + v, 0);
 
-  if (total === 0) return showErr('err2', 'No ballots assigned. Fill in base odds first.');
-  if (total > 100)  return showErr('err2', 'Total ballots exceed 100. Please reduce your values.');
+  if (tot === 0)  return showErr('err2', 'No ballots assigned. Fill in base odds first.');
+  if (tot > 100)  return showErr('err2', 'Total ballots exceed 100. Please reduce your values.');
+
+  // Collect team names before advancing
+  for (let r = 1; r <= S.numTeams; r++) {
+    S.teamNames[r] = {
+      gm:   $('gm' + r)?.value.trim() || '',
+      team: $('tn' + r)?.value.trim() || '',
+    };
+  }
 
   S.adjustedOdds = adj;
-  S.draw = buildDraw(adj);
+  S.draw         = buildDraw(adj);
 
   $('draw-stats').innerHTML = `
     <div class="stat"><div class="stat-val">${S.numTeams}</div><div class="stat-lbl">Total Teams</div></div>
@@ -768,11 +840,9 @@ function go3() {
   $('results-card').classList.add('hidden');
   $('picks-list').innerHTML = '';
   $('seed-inp').value = '';
-  renderBag('bag-draw', S.draw, {});
+  renderBag('bag-draw', S.draw);
 
-  // Populate locked odds sidebar
   renderOddsBars('s3-odds-bars', S.adjustedOdds);
-  const tot = Object.values(S.adjustedOdds).reduce((s, v) => s + v, 0);
   const voids = 100 - tot;
   $('s3-total').textContent = voids > 0
     ? `${tot} active lots · ${voids} void slot${voids !== 1 ? 's' : ''} (re-drawn if hit)`
@@ -781,79 +851,78 @@ function go3() {
   setStep(3);
 }
 
-// ── Draw ───────────────────────────────────────────────────────────────────────
+// ── Draw logic ─────────────────────────────────────────────────────────────────
 function runDraw() {
   const seedStr = $('seed-inp').value.trim();
   if (!seedStr) { alert('Enter a seed value first.'); return; }
 
   $('draw-btn').disabled = true;
 
-  const rng  = mkRng(hashStr(seedStr));
-  const pool = [...S.draw];  // working copy for draw logic (unshuffled canonical list)
+  const rng = mkRng(hashStr(seedStr));
 
-  // Rebuild canonical (unshuffled) pool matching the odds exactly
-  const canon = [];
-  for (const [r, n] of Object.entries(S.adjustedOdds))
-    for (let i = 0; i < n; i++) canon.push(parseInt(r));
-  while (canon.length < 100) canon.push('void');
+  // Draw from the shuffled display pool so indices map directly to balls on screen
+  const drawnPicks = [];  // [{rank, ballIdx}]
+  const drawnRanks = new Set();
 
-  const drawn = [];
-  while (drawn.length < S.numLot) {
-    const pick = canon[Math.floor(rng() * canon.length)];
-    if (pick === 'void' || drawn.includes(pick)) continue;
-    drawn.push(pick);
+  while (drawnPicks.length < S.numLot) {
+    const ballIdx = Math.floor(rng() * S.draw.length);
+    const pick    = S.draw[ballIdx];
+    if (pick === 'void' || drawnRanks.has(pick)) continue;
+    drawnPicks.push({ rank: pick, ballIdx });
+    drawnRanks.add(pick);
   }
 
-  // Full draft order (matches Python logic): drawn first, then remaining by rank desc
+  S.drawnPicks = drawnPicks;
+
+  // Full draft order: lottery picks first, then remaining in rank order (desc)
   const li = [];
   for (let r = S.numTeams; r >= 1; r--) li.push(r);
-  const remaining = li.filter(r => !drawn.includes(r));
-  S.result = [...drawn, ...remaining];
+  const remaining = li.filter(r => !drawnRanks.has(r));
+  S.result = [...drawnPicks.map(d => d.rank), ...remaining];
 
-  animateDraw(drawn);
+  animateDraw(drawnPicks);
 }
 
-function animateDraw(drawn) {
-  const drawnSet = {};
-  drawn.forEach(r => drawnSet[r] = true);
-
+function animateDraw(picks) {
   $('results-card').classList.remove('hidden');
   $('picks-list').innerHTML = '';
 
   let idx = 0;
 
   function next() {
-    if (idx >= drawn.length) {
-      // Show non-lottery picks immediately
-      for (let i = drawn.length; i < S.result.length; i++)
+    if (idx >= picks.length) {
+      // Non-lottery picks: instant display
+      for (let i = picks.length; i < S.result.length; i++)
         addPickCard(i + 1, S.result[i], false);
-      // Dim all drawn balls in the bag
-      drawn.forEach(r => {
-        document.querySelectorAll(`#bag-draw .ball`).forEach(b => {
-          if (parseInt(b.textContent) === r) b.classList.add('dimmed');
-        });
-      });
       $('draw-btn').disabled = false;
       return;
     }
 
-    const rank = drawn[idx];
+    const { rank, ballIdx } = picks[idx];
+    const winBall = $('bag-draw_' + ballIdx);
 
-    // Animate matching balls
-    document.querySelectorAll('#bag-draw .ball').forEach(b => {
-      if (parseInt(b.textContent) === rank) {
-        b.classList.add('popping');
-        b.style.color = tc(rank);
-        b.style.boxShadow = `0 0 0 2px #fff, 0 0 0 4px ${tc(rank)}`;
-        setTimeout(() => { b.classList.remove('popping'); }, 450);
-      }
-    });
+    if (winBall) {
+      // Animate the specific winning ballot only
+      winBall.classList.add('win-anim');
+
+      setTimeout(() => {
+        winBall.classList.remove('win-anim');
+        winBall.classList.add('drawn-winner');
+        winBall.style.boxShadow = `0 0 0 2px #fff, 0 0 0 5px ${tc(rank)}`;
+
+        // Dim all OTHER balls of the same rank
+        document.querySelectorAll('#bag-draw .ball').forEach(b => {
+          if (b !== winBall && parseInt(b.textContent) === rank)
+            b.classList.add('dimmed');
+        });
+      }, 700);
+    }
 
     setTimeout(() => {
       addPickCard(idx + 1, rank, true);
       idx++;
-      setTimeout(next, 500);
-    }, 350);
+      setTimeout(next, 600);
+    }, 400);
   }
 
   next();
@@ -863,7 +932,12 @@ function addPickCard(pickNum, rank, isLottery) {
   const list  = $('picks-list');
   const color = tc(rank);
   const n     = S.adjustedOdds[rank] || 0;
-  const card  = document.createElement('div');
+  const name  = teamDisplay(rank);
+  const gm    = gmDisplay(rank);
+  const total = Object.values(S.adjustedOdds).reduce((s, v) => s + v, 0);
+  const pct   = total > 0 ? (n / total * 100).toFixed(1) : '0';
+
+  const card = document.createElement('div');
   card.className = 'pick-card';
   card.style.borderLeftColor = isLottery ? color : 'var(--border)';
   card.style.background      = isLottery ? `${color}12` : 'var(--bg)';
@@ -871,87 +945,71 @@ function addPickCard(pickNum, rank, isLottery) {
     <div class="pick-num" style="color:${isLottery ? color : 'var(--text3)'}">${pickNum}</div>
     <div class="pick-meta">
       <div class="lbl">${isLottery ? 'Lottery Pick' : 'Assigned Pick'} #${pickNum}</div>
-      <div class="name" style="color:${isLottery ? color : 'var(--text)'}">Team Ranked #${rank}</div>
+      <div class="name" style="color:${isLottery ? color : 'var(--text)'}">${name}</div>
+      ${gm ? `<div class="gm">${gm}</div>` : ''}
     </div>
-    ${isLottery ? `<span class="pick-badge" style="background:${color}20;color:${color}">${n} ballots</span>` : ''}`;
+    ${isLottery ? `<span class="pick-badge" style="background:${color}20;color:${color}">${n} lots · ${pct}%</span>` : ''}`;
   list.appendChild(card);
   requestAnimationFrame(() => card.classList.add('show'));
 }
 
 function resetDraw() {
-  S.result = [];
+  S.result = []; S.drawnPicks = [];
   $('results-card').classList.add('hidden');
   $('picks-list').innerHTML = '';
   $('seed-inp').value = '';
   $('draw-btn').disabled = false;
-  renderBag('bag-draw', S.draw, {});
+  renderBag('bag-draw', S.draw);
 }
 
 // ── Step 3 → 4 ────────────────────────────────────────────────────────────────
 function go4() {
   if (!S.result.length) return;
-  buildNamesForm();
   $('reveal-card').classList.add('hidden');
-  $('names-card').classList.remove('hidden');
+  $('ready-card').classList.remove('hidden');
   setStep(4);
-}
-
-function buildNamesForm() {
-  const tbody = $('names-tbody');
-  tbody.innerHTML = '';
-  for (let r = 1; r <= S.numTeams; r++) {
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
-      <td><div class="chip"><span class="dot" style="background:${tc(r)}"></span>Rank #${r}</div></td>
-      <td><input type="text" id="n${r}" placeholder="Team name…" style="max-width:280px"></td>`;
-    tbody.appendChild(tr);
-  }
 }
 
 // ── Reveal ─────────────────────────────────────────────────────────────────────
 function startReveal() {
-  for (let r = 1; r <= S.numTeams; r++) {
-    const inp = $('n' + r);
-    S.teamNames[r] = inp?.value.trim() || `Team #${r}`;
-  }
-  $('names-card').classList.add('hidden');
+  $('ready-card').classList.add('hidden');
   $('reveal-card').classList.remove('hidden');
 
   const list = $('reveal-list');
   list.innerHTML = '';
 
-  // Reveal order: last pick → first pick (most dramatic last)
+  // Reveal from last pick → first pick (most dramatic last)
   const revealOrder = [...S.result].reverse();
   let i = 0;
 
   function showNext() {
     if (i >= revealOrder.length) return;
-    const rank     = revealOrder[i];
-    const pickNum  = S.result.indexOf(rank) + 1;
+    const rank      = revealOrder[i];
+    const pickNum   = S.result.indexOf(rank) + 1;
     const isLottery = pickNum <= S.numLot;
-    const color    = tc(rank);
-    const name     = S.teamNames[rank];
+    const color     = tc(rank);
+    const name      = teamDisplay(rank);
+    const gm        = gmDisplay(rank);
 
     const item = document.createElement('div');
     item.className = 'reveal-item';
-    item.style.cssText = `
-      background: ${isLottery ? color : 'var(--bg)'};
-      color: ${isLottery ? '#fff' : 'var(--text)'};
-      animation-delay: 0s;`;
+    item.style.background = isLottery ? color : 'var(--bg)';
+    item.style.color      = isLottery ? '#fff' : 'var(--text)';
 
     item.innerHTML = `
-      <div class="reveal-num" style="color:${isLottery ? 'rgba(255,255,255,.5)' : 'var(--text3)'}">${pickNum}</div>
+      <div class="reveal-num" style="color:${isLottery ? 'rgba(255,255,255,.45)' : 'var(--text3)'}">${pickNum}</div>
       <div class="reveal-info">
         <div class="rlbl" style="${isLottery ? 'color:rgba(255,255,255,.6)' : 'color:var(--text2)'}">
           ${isLottery ? '🎰 Lottery Pick' : 'Pick'} #${pickNum}
         </div>
         <div class="rname">${name}</div>
+        ${gm ? `<div class="rgm">${gm}</div>` : ''}
       </div>`;
 
-    // Prepend so list builds top-down with pick 1 ending at top
+    // Prepend: pick 1 ends at top
     list.insertBefore(item, list.firstChild);
     i++;
-    setTimeout(showNext, isLottery ? 950 : 200);
+    setTimeout(showNext, isLottery ? 1000 : 200);
   }
 
   showNext();
@@ -959,17 +1017,21 @@ function startReveal() {
 
 // ── Copy results ───────────────────────────────────────────────────────────────
 function copyResults() {
-  const lines = ['Dynasty Draft Lottery Results', '─'.repeat(30)];
+  const lines = ['Dynasty Draft Lottery Results', '─'.repeat(32)];
   S.result.forEach((rank, i) => {
-    const pick    = i + 1;
-    const isLot   = pick <= S.numLot;
-    const name    = S.teamNames[rank] || `Team #${rank}`;
-    lines.push(`Pick #${pick}${isLot ? ' 🎰' : '   '} — ${name}`);
+    const pick = i + 1;
+    const isLot = pick <= S.numLot;
+    const name = teamDisplay(rank);
+    const gm   = gmDisplay(rank);
+    lines.push(`Pick #${pick}${isLot ? ' 🎰' : '   '} — ${name}${gm ? ' (' + gm + ')' : ''}`);
   });
   navigator.clipboard.writeText(lines.join('\n'))
     .then(() => alert('Results copied to clipboard!'))
     .catch(() => alert(lines.join('\n')));
 }
+
+// ── Init ───────────────────────────────────────────────────────────────────────
+initConfigBanner();
 </script>
 </body>
 </html>
