@@ -16,6 +16,8 @@
       --purple-faint: #eeecfb;
       --green: #10b981;
       --green-faint: #d1fae5;
+      --amber: #f59e0b;
+      --amber-faint: #fef3c7;
       --text: #1d1d1f;
       --text2: #6e6e73;
       --text3: #aeaeb2;
@@ -37,29 +39,16 @@
 
     /* ── Header ────────────────────────────────────── */
     .header { text-align: center; margin-bottom: 52px; }
-    .header-eyebrow {
-      font-size: 11px; font-weight: 600; letter-spacing: .12em;
-      text-transform: uppercase; color: var(--purple); margin-bottom: 10px;
-    }
+    .header-eyebrow { font-size: 11px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--purple); margin-bottom: 10px; }
     .header h1 { font-size: 34px; font-weight: 700; letter-spacing: -.02em; }
     .header p { color: var(--text2); margin-top: 8px; max-width: 460px; margin-left: auto; margin-right: auto; }
 
     /* ── Step progress ─────────────────────────────── */
     .progress { display: flex; align-items: flex-start; justify-content: center; max-width: 520px; margin: 0 auto 44px; }
     .step-item { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 7px; position: relative; }
-    .step-item:not(:last-child)::after {
-      content: ''; position: absolute; top: 13px;
-      left: calc(50% + 16px); right: calc(-50% + 16px);
-      height: 1px; background: var(--border); transition: background .4s;
-    }
+    .step-item:not(:last-child)::after { content: ''; position: absolute; top: 13px; left: calc(50% + 16px); right: calc(-50% + 16px); height: 1px; background: var(--border); transition: background .4s; }
     .step-item.done:not(:last-child)::after { background: var(--purple); }
-    .step-dot {
-      width: 26px; height: 26px; border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 11px; font-weight: 700;
-      background: var(--border); color: var(--text2);
-      transition: background .3s, color .3s; position: relative; z-index: 1;
-    }
+    .step-dot { width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; background: var(--border); color: var(--text2); transition: background .3s, color .3s; position: relative; z-index: 1; }
     .step-item.active .step-dot { background: var(--purple); color: #fff; }
     .step-item.done .step-dot   { background: var(--purple); color: #fff; }
     .step-label { font-size: 11px; color: var(--text2); white-space: nowrap; }
@@ -73,16 +62,19 @@
     .card-title { font-size: 17px; font-weight: 600; margin-bottom: 3px; }
     .card-sub   { font-size: 13px; color: var(--text2); margin-bottom: 26px; }
 
-    /* ── Config banner ──────────────────────────────── */
-    .config-banner {
+    /* ── Config banners ─────────────────────────────── */
+    .cfg-banner {
       display: flex; align-items: center; justify-content: space-between;
-      background: var(--purple-faint); border-radius: var(--r-sm);
-      padding: 12px 16px; margin-bottom: 24px; gap: 12px;
+      border-radius: var(--r-sm); padding: 12px 16px; margin-bottom: 16px; gap: 12px;
+      background: var(--purple-faint);
     }
-    .config-banner-text { font-size: 13px; color: var(--purple); }
-    .config-banner-text strong { font-weight: 600; }
-    .config-banner.loaded { background: var(--green-faint); }
-    .config-banner.loaded .config-banner-text { color: #065f46; }
+    .cfg-banner.amber  { background: var(--amber-faint); }
+    .cfg-banner.loaded { background: var(--green-faint); }
+    .cfg-banner-text { font-size: 13px; color: var(--purple); flex: 1; }
+    .cfg-banner.amber  .cfg-banner-text { color: #92400e; }
+    .cfg-banner.loaded .cfg-banner-text { color: #065f46; }
+    .cfg-banner-text strong { font-weight: 600; display: block; margin-bottom: 1px; }
+    .cfg-banner-text span   { font-size: 12px; opacity: .8; }
 
     /* ── Forms ─────────────────────────────────────── */
     .field { margin-bottom: 20px; }
@@ -98,13 +90,7 @@
     .input-sm { width: 72px !important; }
 
     /* ── Buttons ───────────────────────────────────── */
-    .btn {
-      display: inline-flex; align-items: center; gap: 7px;
-      height: 40px; padding: 0 20px;
-      border: none; border-radius: var(--r-sm);
-      font-family: inherit; font-size: 14px; font-weight: 500;
-      cursor: pointer; transition: background .15s, transform .1s; white-space: nowrap;
-    }
+    .btn { display: inline-flex; align-items: center; gap: 7px; height: 40px; padding: 0 20px; border: none; border-radius: var(--r-sm); font-family: inherit; font-size: 14px; font-weight: 500; cursor: pointer; transition: background .15s, transform .1s; white-space: nowrap; }
     .btn:active { transform: scale(.97); }
     .btn-primary  { background: var(--purple); color: #fff; }
     .btn-primary:hover  { background: var(--purple-lt); }
@@ -114,33 +100,27 @@
     .btn-green:hover  { background: #059669; }
     .btn-outline { background: #fff; color: var(--text2); border: 1.5px solid var(--border); }
     .btn-outline:hover { border-color: var(--purple); color: var(--purple); }
+    .btn-sm { height: 32px; padding: 0 14px; font-size: 12px; }
     .btn-lg { height: 48px; padding: 0 28px; font-size: 15px; }
     .btn:disabled { opacity: .45; cursor: not-allowed; pointer-events: none; }
 
     /* ── Utility ───────────────────────────────────── */
     .hidden { display: none !important; }
     .err { font-size: 12px; color: #ef4444; margin-top: 4px; }
-    .section-label {
-      font-size: 11px; font-weight: 600; text-transform: uppercase;
-      letter-spacing: .1em; color: var(--text2); margin-bottom: 12px; margin-top: 24px;
-    }
-    .action-row { display: flex; justify-content: flex-end; gap: 10px; margin-top: 28px; align-items: center; }
-    .action-row-left { margin-right: auto; }
+    .section-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .1em; color: var(--text2); margin-bottom: 12px; margin-top: 24px; }
+    .action-row { display: flex; justify-content: flex-end; gap: 10px; margin-top: 28px; align-items: center; flex-wrap: wrap; }
+    .action-row-left { margin-right: auto; display: flex; gap: 8px; }
 
     /* ── Tables ────────────────────────────────────── */
     .tbl { width: 100%; border-collapse: collapse; }
-    .tbl th {
-      text-align: left; font-size: 11px; font-weight: 600;
-      text-transform: uppercase; letter-spacing: .07em;
-      color: var(--text2); padding: 0 8px 9px;
-    }
+    .tbl th { text-align: left; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .07em; color: var(--text2); padding: 0 8px 9px; }
     .tbl td { padding: 4px 8px; vertical-align: middle; }
 
     /* ── Team chip ─────────────────────────────────── */
     .chip { display: inline-flex; align-items: center; gap: 7px; font-size: 13px; }
     .dot  { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
 
-    /* ── Odds bars ─────────────────────────────────── */
+    /* ── Simple odds bars (Step 2 preview) ──────────── */
     .bars { display: flex; flex-direction: column; gap: 7px; }
     .bar-row { display: flex; align-items: center; gap: 10px; }
     .bar-lbl { font-size: 12px; color: var(--text2); width: 64px; text-align: right; flex-shrink: 0; }
@@ -150,38 +130,35 @@
     .bar-count { font-size: 12px; font-weight: 600; color: var(--text); }
     .bar-chance{ font-size: 11px; color: var(--text2); }
 
+    /* ── Rich odds panel (Step 3 sidebar) ───────────── */
+    .odds-panel { display: flex; flex-direction: column; }
+    .opr { padding: 9px 0; border-bottom: 1px solid var(--border); }
+    .opr:last-child { border-bottom: none; padding-bottom: 0; }
+    .opr-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 6px; margin-bottom: 5px; }
+    .opr-left { display: flex; align-items: flex-start; gap: 7px; flex: 1; min-width: 0; }
+    .opr-left .dot { margin-top: 2px; }
+    .opr-name { font-size: 12px; font-weight: 600; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 115px; }
+    .opr-meta { font-size: 10px; color: var(--text2); margin-top: 1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 115px; }
+    .opr-nums { text-align: right; flex-shrink: 0; }
+    .opr-lots { font-size: 12px; font-weight: 600; color: var(--text); }
+    .opr-pct  { font-size: 11px; color: var(--text2); }
+    .opr-track { height: 5px; background: var(--bg); border-radius: 3px; overflow: hidden; }
+    .opr-fill  { height: 100%; border-radius: 3px; transition: width .45s ease; }
+
     /* ── Ballot bag ─────────────────────────────────── */
     .bag-wrap { background: var(--bg); border-radius: var(--r-sm); padding: 18px; }
     .bag-grid { display: grid; grid-template-columns: repeat(10, 1fr); gap: 5px; }
-    .ball {
-      aspect-ratio: 1; border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 9px; font-weight: 700; color: rgba(255,255,255,.9);
-      cursor: default; transition: transform .2s, opacity .3s, box-shadow .2s;
-      position: relative;
-    }
+    .ball { aspect-ratio: 1; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 700; color: rgba(255,255,255,.9); cursor: default; transition: transform .2s, opacity .3s, box-shadow .2s; position: relative; }
     .ball.void { background: var(--border) !important; color: var(--text3); }
     .ball.dimmed { opacity: .15; transform: scale(.9); }
     .ball.drawn-winner { transform: scale(1.2) !important; opacity: 1 !important; z-index: 3; }
-    @keyframes win-pop {
-      0%   { transform: scale(1); }
-      25%  { transform: scale(1.7); }
-      50%  { transform: scale(1.3); }
-      75%  { transform: scale(1.65); }
-      100% { transform: scale(1.2); }
-    }
+    @keyframes win-pop { 0% { transform: scale(1); } 25% { transform: scale(1.7); } 50% { transform: scale(1.3); } 75% { transform: scale(1.65); } 100% { transform: scale(1.2); } }
     .ball.win-anim { animation: win-pop .65s ease forwards; }
     .ball[title]:hover { transform: scale(1.35) !important; z-index: 10; cursor: help; }
 
     /* ── Pick cards ─────────────────────────────────── */
     .picks { display: flex; flex-direction: column; gap: 10px; margin-top: 20px; }
-    .pick-card {
-      display: flex; align-items: center; gap: 16px;
-      padding: 14px 18px; border-radius: var(--r-sm);
-      border-left: 4px solid transparent; background: var(--bg);
-      opacity: 0; transform: translateY(10px);
-      transition: opacity .35s ease, transform .35s ease;
-    }
+    .pick-card { display: flex; align-items: center; gap: 16px; padding: 14px 18px; border-radius: var(--r-sm); border-left: 4px solid transparent; background: var(--bg); opacity: 0; transform: translateY(10px); transition: opacity .35s ease, transform .35s ease; }
     .pick-card.show { opacity: 1; transform: none; }
     .pick-num { font-size: 22px; font-weight: 700; min-width: 28px; }
     .pick-meta { flex: 1; }
@@ -205,37 +182,25 @@
     /* ── Penalty row ─────────────────────────────────── */
     .pen-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
     .pen-row label { font-size: 12px; color: var(--text2); white-space: nowrap; }
-    .pen-add {
-      width: 100%; padding: 9px 16px; border: 1.5px dashed var(--border);
-      border-radius: var(--r-sm); background: none; font-family: inherit;
-      font-size: 13px; color: var(--text2); cursor: pointer; margin-top: 8px;
-      transition: border-color .2s, color .2s;
-    }
+    .pen-add { width: 100%; padding: 9px 16px; border: 1.5px dashed var(--border); border-radius: var(--r-sm); background: none; font-family: inherit; font-size: 13px; color: var(--text2); cursor: pointer; margin-top: 8px; transition: border-color .2s, color .2s; }
     .pen-add:hover { border-color: var(--purple); color: var(--purple); }
     .btn-x { background: none; border: none; color: var(--text3); font-size: 18px; line-height: 1; cursor: pointer; padding: 0 4px; }
     .btn-x:hover { color: #ef4444; }
 
     /* ── Step 3 two-column layout ──────────────────── */
-    .s3-grid { display: grid; grid-template-columns: 252px 1fr; gap: 20px; align-items: start; }
+    .s3-grid { display: grid; grid-template-columns: 268px 1fr; gap: 20px; align-items: start; }
     .s3-sticky { position: sticky; top: 24px; }
-    @media (max-width: 680px) { .s3-grid { grid-template-columns: 1fr; } .s3-sticky { position: static; } }
+    @media (max-width: 700px) { .s3-grid { grid-template-columns: 1fr; } .s3-sticky { position: static; } }
 
-    /* ── Reveal cards ────────────────────────────────── */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(16px); }
-      to   { opacity: 1; transform: none; }
-    }
-    .reveal-item {
-      display: flex; align-items: center; gap: 20px;
-      padding: 18px 24px; border-radius: var(--r-sm);
-      animation: fadeUp .45s ease forwards;
-    }
+    /* ── Reveal ──────────────────────────────────────── */
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+    .reveal-item { display: flex; align-items: center; gap: 20px; padding: 18px 24px; border-radius: var(--r-sm); animation: fadeUp .45s ease forwards; }
     .reveal-num { font-size: 30px; font-weight: 700; min-width: 36px; }
     .reveal-info .rlbl  { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .1em; }
     .reveal-info .rname { font-size: 20px; font-weight: 600; margin-top: 2px; }
     .reveal-info .rgm   { font-size: 13px; margin-top: 2px; opacity: .75; }
 
-    /* ── Quick-fill select ───────────────────────────── */
+    /* ── Misc ────────────────────────────────────────── */
     select.qf { height: 32px; font-size: 12px; padding: 0 8px; width: auto; color: var(--text2); }
   </style>
 </head>
@@ -262,9 +227,12 @@
       <div class="card-title">League Configuration</div>
       <div class="card-sub">Set up the basics, or load your saved league config for one-click setup.</div>
 
-      <div id="config-banner" class="config-banner">
-        <div class="config-banner-text"><strong id="config-name">League config available</strong><br><span id="config-desc" style="opacity:.8"></span></div>
-        <button class="btn btn-ghost2" id="load-btn" onclick="loadConfig()">Load Config</button>
+      <div id="league-banner" class="cfg-banner">
+        <div class="cfg-banner-text">
+          <strong id="league-banner-title">League config available</strong>
+          <span id="league-banner-desc"></span>
+        </div>
+        <button class="btn btn-ghost2 btn-sm" id="load-league-btn" onclick="loadLeagueConfig()">Load Config</button>
       </div>
 
       <div class="field">
@@ -293,6 +261,21 @@
   <!-- ══════════ STEP 2 ══════════ -->
   <div id="s2" class="hidden">
 
+    <!-- Results Config banner -->
+    <div class="card" style="padding:20px 24px">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap">
+        <div>
+          <div style="font-size:14px;font-weight:600;margin-bottom:2px">Results Configuration</div>
+          <div style="font-size:12px;color:var(--text2)">Load saved season results to pre-fill team assignments, consolation results, and penalties.</div>
+        </div>
+        <div style="display:flex;gap:8px;flex-shrink:0">
+          <button class="btn btn-outline btn-sm" id="load-results-btn" onclick="loadResultsConfig()">Load Results</button>
+          <button class="btn btn-outline btn-sm" id="save-results-btn" onclick="saveResultsConfig()">Save Results</button>
+        </div>
+      </div>
+      <div id="results-banner-msg" class="hidden" style="margin-top:10px;font-size:12px;padding:8px 12px;border-radius:6px;background:var(--green-faint);color:#065f46"></div>
+    </div>
+
     <div class="card">
       <div class="card-title">Base Odds</div>
       <div class="card-sub">Assign ballots to each lottery-eligible team. The draw bag has 100 total slots — start from last place.</div>
@@ -320,10 +303,9 @@
       <button class="pen-add" onclick="addPen()">+ Add a penalty</button>
     </div>
 
-    <!-- Team Names — NEW: moved here from Step 4 -->
     <div class="card">
       <div class="card-title">Team Names</div>
-      <div class="card-sub">Assign each team's GM and team name to their regular season rank before the draw. Use the quick-fill to load from your saved roster.</div>
+      <div class="card-sub">Assign each team's GM and name to their regular season rank before the draw.</div>
       <table class="tbl">
         <thead><tr><th>Rank</th><th>GM Name</th><th>Team Name</th><th style="width:130px">Quick-fill</th></tr></thead>
         <tbody id="names-tbody"></tbody>
@@ -342,7 +324,7 @@
     <div id="err2" class="err hidden" style="margin-bottom:14px"></div>
     <div class="action-row">
       <div class="action-row-left">
-        <button class="btn btn-outline" onclick="saveConfig()">Save Config</button>
+        <button class="btn btn-outline" onclick="saveLeagueConfig()">Save League Config</button>
       </div>
       <button class="btn btn-ghost2" onclick="go1()">← Back</button>
       <button class="btn btn-primary" onclick="go3()">Run the Lottery →</button>
@@ -353,15 +335,17 @@
   <div id="s3" class="hidden">
     <div class="s3-grid">
 
+      <!-- Sidebar -->
       <div class="s3-sticky">
         <div class="card" style="padding:24px 20px;margin-bottom:0">
           <div class="card-title" style="font-size:15px">Odds Summary</div>
           <div style="font-size:12px;color:var(--text2);margin-bottom:16px">Final ballot distribution going into the draw.</div>
-          <div id="s3-odds-bars" class="bars"></div>
+          <div id="s3-odds-panel" class="odds-panel"></div>
           <div id="s3-total" style="margin-top:12px;font-size:11px;color:var(--text3);border-top:1px solid var(--border);padding-top:10px"></div>
         </div>
       </div>
 
+      <!-- Main -->
       <div>
         <div class="card">
           <div class="card-title">The Draw</div>
@@ -376,6 +360,9 @@
           </div>
           <div class="section-label">The Draw Bag — 100 Ballots</div>
           <div class="bag-wrap"><div id="bag-draw" class="bag-grid"></div></div>
+          <div class="action-row" style="margin-top:20px">
+            <button class="btn btn-ghost2" onclick="goBack3()">← Back to Odds & Teams</button>
+          </div>
         </div>
 
         <div class="card hidden" id="results-card">
@@ -397,8 +384,11 @@
 
     <div class="card" id="ready-card" style="text-align:center">
       <div class="card-title" style="font-size:22px;letter-spacing:-.015em">Ready to Reveal?</div>
-      <div class="card-sub" style="max-width:380px;margin-left:auto;margin-right:auto">Start the dramatic reveal — picks are announced from last to first. Share your screen with the league.</div>
+      <div class="card-sub" style="max-width:380px;margin-left:auto;margin-right:auto;margin-bottom:20px">Start the dramatic reveal — picks announced from last to first. Share your screen with the league.</div>
       <button class="btn btn-green btn-lg" onclick="startReveal()">&#127942; Begin Reveal</button>
+      <div style="margin-top:16px">
+        <button class="btn btn-ghost2 btn-sm" onclick="goBack4()">← Back to Draw</button>
+      </div>
     </div>
 
     <div class="card hidden" id="reveal-card">
@@ -416,17 +406,15 @@
 
 <script>
 // ── League Config ──────────────────────────────────────────────────────────────
-// Edit this object to match your league. This is the hardcoded default.
-// Click "Save Config" at the end of Step 2 to persist changes to your browser.
+// Edit to match your league. Click "Save League Config" to persist to browser.
 const LEAGUE_CONFIG = {
   name: "Dynasty Fantasy Basketball",
   numTeams: 12,
   numLot: 3,
   numLotTeams: 6,
-  // 12th–7th place baseline odds (ballots out of 100; 30 slots will be void)
   baseOdds: { "12": 30, "11": 20, "10": 10, "9": 5, "8": 3, "7": 2 },
   consolationCount: 3,
-  consolationPrizes: [13, 10, 7],  // consolation 1st / 2nd / 3rd bonus lots
+  consolationPrizes: [13, 10, 7],
   teams: [
     { gm: "Rahul",    team: "Fishing Poles Equipped" },
     { gm: "Dan",      team: "Scarborough Shooting Starz" },
@@ -441,6 +429,16 @@ const LEAGUE_CONFIG = {
     { gm: "Sunny",    team: "Sunny D and the Capri Suns" },
     { gm: "Sinan",    team: "I am so happy" },
   ]
+};
+
+// ── Results Config ─────────────────────────────────────────────────────────────
+// Stores season-specific data: who finished where, consolation results, penalties.
+// Populated via "Save Results" and reloaded via "Load Results" each season.
+const RESULTS_CONFIG_DEFAULT = {
+  season: "",
+  teamRanks: {},         // rank (str) → { gm, team }
+  consolationResults: {}, // place (str) → team rank
+  penalties: []           // [{ rank, amount }]
 };
 
 // ── Palette ────────────────────────────────────────────────────────────────────
@@ -472,78 +470,13 @@ function mkRng(seed) {
 // ── State ──────────────────────────────────────────────────────────────────────
 const S = {
   numTeams: 0, numLot: 0, numLotTeams: 0, numPrizes: 0,
-  adjustedOdds: {},   // rank → ballot count
-  draw: [],           // shuffled display/draw pool (100 items: int|'void')
-  drawnPicks: [],     // [{rank, ballIdx}] lottery picks in draw order
-  result: [],         // full draft order [rank...], index 0 = pick #1
-  teamNames: {},      // rank → { gm: string, team: string }
-  _pendingConfig: null,
+  adjustedOdds: {},
+  draw: [],
+  drawnPicks: [],   // [{rank, ballIdx}]
+  result: [],       // full draft order [rank...]
+  teamNames: {},    // rank → { gm, team }
+  _pendingLeague: null,
 };
-
-// ── Config management ──────────────────────────────────────────────────────────
-function getStoredConfig() {
-  try {
-    const s = localStorage.getItem('dynastyLotteryConfig');
-    if (s) return JSON.parse(s);
-  } catch(e) {}
-  return null;
-}
-
-function initConfigBanner() {
-  const stored  = getStoredConfig();
-  const cfg     = stored || LEAGUE_CONFIG;
-  const hasData = cfg.numTeams > 0 || (cfg.teams && cfg.teams.length > 0);
-  if (!hasData) { $('config-banner').classList.add('hidden'); return; }
-  $('config-name').textContent = cfg.name || 'Saved League Config';
-  $('config-desc').textContent = stored
-    ? `Saved config — ${cfg.numTeams} teams, ${cfg.numLot} lottery picks`
-    : `Default config — ${cfg.numTeams} teams, ${cfg.numLot} lottery picks`;
-  if (stored) $('config-banner').classList.add('loaded');
-}
-
-function loadConfig() {
-  const stored = getStoredConfig();
-  const cfg    = stored || LEAGUE_CONFIG;
-
-  $('f-teams').value = cfg.numTeams || '';
-  $('f-lot').value   = cfg.numLot   || '';
-  $('f-elig').value  = cfg.numLotTeams || '';
-
-  S._pendingConfig = cfg;
-  $('load-btn').textContent  = '✓ Loaded';
-  $('load-btn').style.background = 'var(--green)';
-  $('load-btn').style.color      = '#fff';
-  $('config-banner').classList.add('loaded');
-  $('config-name').textContent   = '✓ ' + (cfg.name || 'Config loaded');
-  $('config-desc').textContent   = `${cfg.numTeams} teams · ${cfg.numLot} lottery picks · ${cfg.numLotTeams} eligible`;
-}
-
-function saveConfig() {
-  const adj = computeOdds();
-  const cfg = {
-    name: (getStoredConfig() || LEAGUE_CONFIG).name || 'My Dynasty League',
-    numTeams: S.numTeams,
-    numLot: S.numLot,
-    numLotTeams: S.numLotTeams,
-    baseOdds: {},
-    consolationCount: S.numPrizes,
-    consolationPrizes: [],
-    teams: [],
-  };
-  eligibleRanks().forEach(r => { cfg.baseOdds[String(r)] = parseInt($('b' + r)?.value) || 0; });
-  for (let p = 1; p <= S.numPrizes; p++)
-    cfg.consolationPrizes.push(parseInt($('pz' + p)?.value) || 0);
-  for (let r = 1; r <= S.numTeams; r++) {
-    const gm   = $('gm' + r)?.value.trim() || '';
-    const team = $('tn' + r)?.value.trim() || '';
-    cfg.teams.push({ gm, team });
-  }
-  try {
-    localStorage.setItem('dynastyLotteryConfig', JSON.stringify(cfg));
-    const btn = document.querySelector('[onclick="saveConfig()"]');
-    if (btn) { btn.textContent = '✓ Saved'; setTimeout(() => { btn.textContent = 'Save Config'; }, 2000); }
-  } catch(e) { alert('Could not save config: ' + e.message); }
-}
 
 // ── Helpers ────────────────────────────────────────────────────────────────────
 function $(id) { return document.getElementById(id); }
@@ -556,8 +489,7 @@ function clearErr(id) { $(id).classList.add('hidden'); }
 
 function teamDisplay(rank) {
   const t = S.teamNames[rank];
-  if (!t) return `Team Ranked #${rank}`;
-  return t.team || `Team Ranked #${rank}`;
+  return (t && t.team) ? t.team : `Team Ranked #${rank}`;
 }
 function gmDisplay(rank) {
   const t = S.teamNames[rank];
@@ -574,28 +506,156 @@ function setStep(n) {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// ── Step 1 ─────────────────────────────────────────────────────────────────────
+// ── League Config management ───────────────────────────────────────────────────
+function getStoredLeagueConfig() {
+  try { const s = localStorage.getItem('dynastyLotteryConfig'); if (s) return JSON.parse(s); } catch(e) {}
+  return null;
+}
+
+function initLeagueBanner() {
+  const stored = getStoredLeagueConfig();
+  const cfg    = stored || LEAGUE_CONFIG;
+  if (!cfg.numTeams) { $('league-banner').classList.add('hidden'); return; }
+  $('league-banner-title').textContent = stored ? `Saved: ${cfg.name}` : cfg.name;
+  $('league-banner-desc').textContent  = `${cfg.numTeams} teams · ${cfg.numLot} lottery picks · ${cfg.numLotTeams} eligible`;
+  if (stored) $('league-banner').classList.add('loaded');
+}
+
+function loadLeagueConfig() {
+  const stored = getStoredLeagueConfig();
+  const cfg    = stored || LEAGUE_CONFIG;
+  $('f-teams').value = cfg.numTeams || '';
+  $('f-lot').value   = cfg.numLot   || '';
+  $('f-elig').value  = cfg.numLotTeams || '';
+  S._pendingLeague   = cfg;
+  const btn = $('load-league-btn');
+  btn.textContent = '✓ Loaded'; btn.style.background = 'var(--green)'; btn.style.color = '#fff';
+  $('league-banner').classList.add('loaded');
+  $('league-banner-title').textContent = '✓ ' + (cfg.name || 'League config loaded');
+  $('league-banner-desc').textContent  = `${cfg.numTeams} teams · ${cfg.numLot} picks · ${cfg.numLotTeams} eligible`;
+}
+
+function saveLeagueConfig() {
+  const adj = computeOdds();
+  const cfg = {
+    name: (getStoredLeagueConfig() || LEAGUE_CONFIG).name || 'My Dynasty League',
+    numTeams: S.numTeams, numLot: S.numLot, numLotTeams: S.numLotTeams,
+    baseOdds: {}, consolationCount: S.numPrizes, consolationPrizes: [], teams: []
+  };
+  eligibleRanks().forEach(r => { cfg.baseOdds[String(r)] = parseInt($('b' + r)?.value) || 0; });
+  for (let p = 1; p <= S.numPrizes; p++)
+    cfg.consolationPrizes.push(parseInt($('pz' + p)?.value) || 0);
+  for (let r = 1; r <= S.numTeams; r++)
+    cfg.teams.push({ gm: $('gm' + r)?.value.trim() || '', team: $('tn' + r)?.value.trim() || '' });
+  try {
+    localStorage.setItem('dynastyLotteryConfig', JSON.stringify(cfg));
+    const btn = document.querySelector('[onclick="saveLeagueConfig()"]');
+    if (btn) { btn.textContent = '✓ Saved'; setTimeout(() => { btn.textContent = 'Save League Config'; }, 2000); }
+  } catch(e) { alert('Could not save: ' + e.message); }
+}
+
+// ── Results Config management ──────────────────────────────────────────────────
+function getStoredResultsConfig() {
+  try { const s = localStorage.getItem('dynastyLotteryResults'); if (s) return JSON.parse(s); } catch(e) {}
+  return null;
+}
+
+function loadResultsConfig() {
+  const cfg = getStoredResultsConfig();
+  if (!cfg) {
+    showResultsBannerMsg('No saved results found. Fill in the season data below and click Save Results to store it.', false);
+    return;
+  }
+  applyResultsConfig(cfg);
+  const label = cfg.season ? `Season ${cfg.season} results loaded.` : 'Results loaded.';
+  showResultsBannerMsg(`✓ ${label} Team assignments, consolation results, and penalties pre-filled.`, true);
+  $('load-results-btn').textContent = '✓ Loaded';
+  $('load-results-btn').style.background = 'var(--green)';
+  $('load-results-btn').style.color = '#fff';
+}
+
+function applyResultsConfig(cfg) {
+  // Team rank assignments
+  if (cfg.teamRanks) {
+    for (const [rank, names] of Object.entries(cfg.teamRanks)) {
+      const gmEl = $('gm' + rank), tnEl = $('tn' + rank);
+      if (gmEl) gmEl.value = names.gm   || '';
+      if (tnEl) tnEl.value = names.team || '';
+    }
+  }
+  // Consolation results
+  if (cfg.consolationResults) {
+    for (const [place, rank] of Object.entries(cfg.consolationResults)) {
+      const sel = $('cr' + place);
+      if (sel) sel.value = rank;
+    }
+  }
+  // Penalties
+  if (cfg.penalties && cfg.penalties.length > 0) {
+    $('pen-rows').innerHTML = ''; penId = 0;
+    cfg.penalties.forEach(({ rank, amount }) => {
+      addPen();
+      const sel = $('prank' + penId), inp = $('pamt' + penId);
+      if (sel) sel.value = rank;
+      if (inp) inp.value = amount;
+    });
+  }
+  updateViz();
+}
+
+function saveResultsConfig() {
+  const year = new Date().getFullYear();
+  const cfg  = {
+    season: `${year}-${String(year + 1).slice(-2)}`,
+    teamRanks: {}, consolationResults: {}, penalties: []
+  };
+  for (let r = 1; r <= S.numTeams; r++)
+    cfg.teamRanks[r] = { gm: $('gm' + r)?.value.trim() || '', team: $('tn' + r)?.value.trim() || '' };
+  for (let p = 1; p <= S.numPrizes; p++) {
+    const sel = $('cr' + p);
+    if (sel && sel.value) cfg.consolationResults[p] = parseInt(sel.value);
+  }
+  document.querySelectorAll('[id^="pr"]').forEach(row => {
+    const id = row.id.slice(2);
+    const r  = parseInt($('prank' + id)?.value);
+    const amt = parseInt($('pamt' + id)?.value) || 0;
+    if (r) cfg.penalties.push({ rank: r, amount: amt });
+  });
+  try {
+    localStorage.setItem('dynastyLotteryResults', JSON.stringify(cfg));
+    showResultsBannerMsg(`✓ Season ${cfg.season} results saved. Load next time to skip re-entry.`, true);
+    const btn = $('save-results-btn');
+    if (btn) { btn.textContent = '✓ Saved'; setTimeout(() => { btn.textContent = 'Save Results'; }, 2000); }
+  } catch(e) { alert('Could not save: ' + e.message); }
+}
+
+function showResultsBannerMsg(msg, success) {
+  const el = $('results-banner-msg');
+  el.textContent = msg;
+  el.style.background = success ? 'var(--green-faint)' : 'var(--amber-faint)';
+  el.style.color = success ? '#065f46' : '#92400e';
+  el.classList.remove('hidden');
+}
+
+// ── Step navigation ────────────────────────────────────────────────────────────
 function go1() { setStep(1); }
+function goBack3() { setStep(2); }  // back from Draw to Odds & Teams (preserves form)
+function goBack4() { setStep(3); }  // back from Reveal to Draw
 
 function go2() {
   clearErr('err1');
   const teams = parseInt($('f-teams').value);
   const lot   = parseInt($('f-lot').value);
   const elig  = parseInt($('f-elig').value);
-
-  if (!teams || teams < 2 || teams > 30)
-    return showErr('err1', 'Number of teams must be between 2 and 30.');
-  if (!lot || lot < 1 || lot >= teams)
-    return showErr('err1', 'Lottery picks must be at least 1 and less than the total teams.');
-  if (!elig || elig <= lot || elig > teams)
-    return showErr('err1', `Lottery-eligible teams must be between ${lot + 1} and ${teams}.`);
-
+  if (!teams || teams < 2 || teams > 30)   return showErr('err1', 'Number of teams must be between 2 and 30.');
+  if (!lot || lot < 1 || lot >= teams)     return showErr('err1', 'Lottery picks must be at least 1 and less than total teams.');
+  if (!elig || elig <= lot || elig > teams) return showErr('err1', `Lottery-eligible teams must be between ${lot + 1} and ${teams}.`);
   S.numTeams = teams; S.numLot = lot; S.numLotTeams = elig;
   buildStep2();
   setStep(2);
 }
 
-// ── Step 2 ─────────────────────────────────────────────────────────────────────
+// ── Step 2 build ───────────────────────────────────────────────────────────────
 function eligibleRanks() {
   const arr = [];
   for (let i = 0; i < S.numLotTeams; i++) arr.push(S.numTeams - i);
@@ -603,16 +663,14 @@ function eligibleRanks() {
 }
 
 function buildStep2() {
-  const cfg = S._pendingConfig;
+  const cfg = S._pendingLeague;
 
   // Base odds rows
   const tbody = $('base-tbody');
   tbody.innerHTML = '';
   eligibleRanks().forEach((rank, i) => {
-    const label = i === 0 ? 'Last Place'
-      : i === S.numLotTeams - 1 ? `${ord(S.numLotTeams)} (First Eligible)`
-      : `${ord(i + 1)} from Bottom`;
-    const prefill = cfg?.baseOdds?.[String(rank)] || cfg?.baseOdds?.[rank] || '';
+    const label   = i === 0 ? 'Last Place' : i === S.numLotTeams - 1 ? `${ord(S.numLotTeams)} (First Eligible)` : `${ord(i + 1)} from Bottom`;
+    const prefill = cfg?.baseOdds?.[String(rank)] ?? cfg?.baseOdds?.[rank] ?? '';
     const tr = document.createElement('tr');
     tr.innerHTML = `
       <td><div class="chip"><span class="dot" style="background:${tc(rank)}"></span>Rank #${rank} — ${label}</div></td>
@@ -621,27 +679,28 @@ function buildStep2() {
   });
 
   // Consolation prizes
-  $('f-prizes').value = '';
-  $('prize-forms').innerHTML = '';
+  $('f-prizes').value = ''; $('prize-forms').innerHTML = '';
   if (cfg?.consolationCount > 0) {
     $('f-prizes').value = cfg.consolationCount;
     S.numPrizes = cfg.consolationCount;
     buildPrizeForms();
     for (let p = 1; p <= cfg.consolationCount; p++) {
       const inp = $('pz' + p);
-      if (inp && cfg.consolationPrizes?.[p - 1] != null)
-        inp.value = cfg.consolationPrizes[p - 1];
+      if (inp && cfg.consolationPrizes?.[p - 1] != null) inp.value = cfg.consolationPrizes[p - 1];
     }
-  } else {
-    S.numPrizes = 0;
-  }
+  } else { S.numPrizes = 0; }
 
   // Penalties
-  $('pen-rows').innerHTML = '';
-  penId = 0;
+  $('pen-rows').innerHTML = ''; penId = 0;
 
   // Team names
   buildNamesSection(cfg);
+
+  // Reset results banner
+  $('results-banner-msg').classList.add('hidden');
+  $('load-results-btn').textContent = 'Load Results';
+  $('load-results-btn').style.background = '';
+  $('load-results-btn').style.color = '';
 
   updateViz();
 }
@@ -649,8 +708,7 @@ function buildStep2() {
 let penId = 0;
 function addPen() {
   penId++;
-  const id = penId;
-  const ranks = eligibleRanks();
+  const id = penId, ranks = eligibleRanks();
   const div = document.createElement('div');
   div.className = 'pen-row'; div.id = 'pr' + id;
   div.innerHTML = `
@@ -675,38 +733,24 @@ function buildPrizeForms() {
   c.innerHTML = `
     <div class="section-label">Bonus Ballot Amounts</div>
     <table class="tbl"><thead><tr><th>Consolation Finish</th><th>Bonus Ballots</th></tr></thead>
-    <tbody>${Array.from({length: n}, (_, i) => `
-      <tr><td>${ord(i + 1)} Place</td>
-      <td><input type="number" class="input-sm" id="pz${i+1}" min="0" placeholder="0" oninput="updateViz()"></td></tr>`).join('')}
-    </tbody></table>
+    <tbody>${Array.from({length: n}, (_, i) => `<tr><td>${ord(i+1)} Place</td><td><input type="number" class="input-sm" id="pz${i+1}" min="0" placeholder="0" oninput="updateViz()"></td></tr>`).join('')}</tbody></table>
     <div class="section-label" style="margin-top:20px">Which Team Won Each Prize?</div>
     <table class="tbl"><thead><tr><th>Finish</th><th>Team's Regular Season Rank</th></tr></thead>
-    <tbody>${Array.from({length: n}, (_, i) => `
-      <tr><td>${ord(i + 1)} Place</td>
-      <td><select id="cr${i+1}" onchange="updateViz()" style="width:160px">
-        <option value="">Select team…</option>
-        ${ranks.map(r => `<option value="${r}">Rank #${r}</option>`).join('')}
-      </select></td></tr>`).join('')}
-    </tbody></table>`;
+    <tbody>${Array.from({length: n}, (_, i) => `<tr><td>${ord(i+1)} Place</td><td><select id="cr${i+1}" onchange="updateViz()" style="width:160px"><option value="">Select team…</option>${ranks.map(r => `<option value="${r}">Rank #${r}</option>`).join('')}</select></td></tr>`).join('')}</tbody></table>`;
   updateViz();
 }
 
 function buildNamesSection(cfg) {
-  const roster = cfg?.teams || [];
+  const roster   = cfg?.teams || [];
   const hasRoster = roster.some(t => t.gm || t.team);
-
-  const tbody = $('names-tbody');
-  tbody.innerHTML = '';
-
   const opts = hasRoster
-    ? `<option value="">Quick-fill ▼</option>` +
-      roster.map((t, i) => {
+    ? `<option value="">Quick-fill ▼</option>` + roster.map(t => {
         const label = [t.team, t.gm].filter(Boolean).join(' · ');
-        const val   = encodeURIComponent(JSON.stringify({ gm: t.gm, team: t.team }));
-        return `<option value="${val}">${label || '(unnamed)'}</option>`;
+        return `<option value="${encodeURIComponent(JSON.stringify({gm:t.gm,team:t.team}))}">${label || '(unnamed)'}</option>`;
       }).join('')
     : '';
-
+  const tbody = $('names-tbody');
+  tbody.innerHTML = '';
   for (let r = 1; r <= S.numTeams; r++) {
     const tr = document.createElement('tr');
     tr.innerHTML = `
@@ -722,8 +766,7 @@ function quickFill(rank, sel) {
   if (!sel.value) return;
   try {
     const { gm, team } = JSON.parse(decodeURIComponent(sel.value));
-    $('gm' + rank).value   = gm   || '';
-    $('tn' + rank).value   = team || '';
+    $('gm' + rank).value = gm || ''; $('tn' + rank).value = team || '';
     sel.value = '';
   } catch(e) {}
 }
@@ -732,76 +775,87 @@ function quickFill(rank, sel) {
 function computeOdds() {
   const adj = {};
   eligibleRanks().forEach(r => { adj[r] = parseInt($('b' + r)?.value) || 0; });
-
   for (let p = 1; p <= S.numPrizes; p++) {
     const bonus = parseInt($('pz' + p)?.value) || 0;
     const rank  = parseInt($('cr' + p)?.value)  || 0;
     if (rank && adj[rank] !== undefined) adj[rank] += bonus;
   }
-
   document.querySelectorAll('[id^="pr"]').forEach(row => {
-    const id  = row.id.slice(2);
-    const r   = parseInt($('prank' + id)?.value);
+    const id = row.id.slice(2);
+    const r  = parseInt($('prank' + id)?.value);
     const amt = parseInt($('pamt' + id)?.value) || 0;
     if (r && adj[r] !== undefined) adj[r] = Math.max(0, adj[r] - amt);
   });
-
   return adj;
 }
 
 function buildDraw(adj) {
   let draw = [];
-  for (const [r, n] of Object.entries(adj))
-    for (let i = 0; i < n; i++) draw.push(parseInt(r));
+  for (const [r, n] of Object.entries(adj)) for (let i = 0; i < n; i++) draw.push(parseInt(r));
   while (draw.length < 100) draw.push('void');
-  // Deterministic shuffle for display (seed 42 — independent of user seed)
   const rng = mkRng(42);
-  for (let i = draw.length - 1; i > 0; i--) {
-    const j = Math.floor(rng() * (i + 1));
-    [draw[i], draw[j]] = [draw[j], draw[i]];
-  }
+  for (let i = draw.length - 1; i > 0; i--) { const j = Math.floor(rng() * (i + 1)); [draw[i], draw[j]] = [draw[j], draw[i]]; }
   return draw;
 }
 
 // ── Visualization ──────────────────────────────────────────────────────────────
 function renderOddsBars(containerId, adj) {
-  const el = $(containerId);
-  if (!el) return;
-  el.innerHTML = '';
+  const el = $(containerId); if (!el) return; el.innerHTML = '';
   const total = Object.values(adj).reduce((s, v) => s + v, 0);
-  const ranks = Object.keys(adj).map(Number).sort((a, b) => b - a);
-  ranks.forEach(r => {
-    const n    = adj[r] || 0;
-    const pct  = total > 0 ? (n / total * 100).toFixed(1) : '0.0';
-    const barW = total > 0 ? (n / total * 100) : 0;
-    const row  = document.createElement('div');
+  Object.keys(adj).map(Number).sort((a, b) => b - a).forEach(r => {
+    const n = adj[r] || 0, pct = total > 0 ? (n/total*100).toFixed(1) : '0.0', barW = total > 0 ? n/total*100 : 0;
+    const row = document.createElement('div');
     row.className = 'bar-row';
     row.innerHTML = `
       <div class="bar-lbl">Rank #${r}</div>
       <div class="bar-track"><div class="bar-fill" style="width:${barW}%;background:${tc(r)}"></div></div>
-      <div class="bar-info">
-        <span class="bar-count">${n} lots</span>
-        <span class="bar-chance">${pct}%</span>
-      </div>`;
+      <div class="bar-info"><span class="bar-count">${n} lots</span><span class="bar-chance">${pct}%</span></div>`;
+    el.appendChild(row);
+  });
+}
+
+function renderOddsPanel(containerId, adj) {
+  // Rich version used in Step 3 sidebar — includes team name and GM
+  const el = $(containerId); if (!el) return; el.innerHTML = '';
+  const total = Object.values(adj).reduce((s, v) => s + v, 0);
+  Object.keys(adj).map(Number).sort((a, b) => b - a).forEach(r => {
+    const n    = adj[r] || 0;
+    const pct  = total > 0 ? (n / total * 100).toFixed(1) : '0.0';
+    const barW = total > 0 ? n / total * 100 : 0;
+    const name = teamDisplay(r);
+    const gm   = gmDisplay(r);
+    const meta = ['Rank #' + r, gm].filter(Boolean).join(' · ');
+    const row  = document.createElement('div');
+    row.className = 'opr';
+    row.innerHTML = `
+      <div class="opr-header">
+        <div class="opr-left">
+          <span class="dot" style="background:${tc(r)};width:8px;height:8px;flex-shrink:0;margin-top:3px"></span>
+          <div style="min-width:0">
+            <div class="opr-name">${name}</div>
+            <div class="opr-meta">${meta}</div>
+          </div>
+        </div>
+        <div class="opr-nums">
+          <div class="opr-lots">${n} lots</div>
+          <div class="opr-pct">${pct}%</div>
+        </div>
+      </div>
+      <div class="opr-track"><div class="opr-fill" style="width:${barW}%;background:${tc(r)}"></div></div>`;
     el.appendChild(row);
   });
 }
 
 function renderBag(containerId, draw) {
-  const el = $(containerId);
-  el.innerHTML = '';
+  const el = $(containerId); el.innerHTML = '';
   draw.forEach((val, i) => {
     const b = document.createElement('div');
     b.className = 'ball' + (val === 'void' ? ' void' : '');
     b.id = containerId + '_' + i;
-    if (val === 'void') {
-      b.textContent = '∅';
-    } else {
-      b.style.background = tc(val);
-      b.textContent = val;
-      const name = teamDisplay(val);
-      const gm   = gmDisplay(val);
-      const lots = S.adjustedOdds[val] || 0;
+    if (val === 'void') { b.textContent = '∅'; }
+    else {
+      b.style.background = tc(val); b.textContent = val;
+      const name = teamDisplay(val), gm = gmDisplay(val), lots = S.adjustedOdds[val] || 0;
       b.title = `${name}${gm ? ' · ' + gm : ''} — ${lots} lots`;
     }
     el.appendChild(b);
@@ -809,13 +863,10 @@ function renderBag(containerId, draw) {
 }
 
 function updateViz() {
-  const adj  = computeOdds();
-  const draw = buildDraw(adj);
-  const tot  = Object.values(adj).reduce((s, v) => s + v, 0);
-
+  const adj = computeOdds(), draw = buildDraw(adj);
+  const tot = Object.values(adj).reduce((s, v) => s + v, 0);
   $('total-line').textContent = `Total ballots assigned: ${tot} / 100` +
     (tot > 100 ? ' ⚠️ Exceeds limit!' : tot < 100 ? ` (${100 - tot} will be void draws)` : ' ✓');
-
   renderOddsBars('odds-bars', adj);
   renderBag('bag-preview', draw);
 }
@@ -825,20 +876,14 @@ function go3() {
   clearErr('err2');
   const adj = computeOdds();
   const tot = Object.values(adj).reduce((s, v) => s + v, 0);
-
   if (tot === 0)  return showErr('err2', 'No ballots assigned. Fill in base odds first.');
   if (tot > 100)  return showErr('err2', 'Total ballots exceed 100. Please reduce your values.');
 
-  // Collect team names before advancing
-  for (let r = 1; r <= S.numTeams; r++) {
-    S.teamNames[r] = {
-      gm:   $('gm' + r)?.value.trim() || '',
-      team: $('tn' + r)?.value.trim() || '',
-    };
-  }
+  for (let r = 1; r <= S.numTeams; r++)
+    S.teamNames[r] = { gm: $('gm' + r)?.value.trim() || '', team: $('tn' + r)?.value.trim() || '' };
 
   S.adjustedOdds = adj;
-  S.draw         = buildDraw(adj);
+  S.draw = buildDraw(adj);
 
   $('draw-stats').innerHTML = `
     <div class="stat"><div class="stat-val">${S.numTeams}</div><div class="stat-lbl">Total Teams</div></div>
@@ -850,8 +895,7 @@ function go3() {
   $('picks-list').innerHTML = '';
   $('seed-inp').value = '';
   renderBag('bag-draw', S.draw);
-
-  renderOddsBars('s3-odds-bars', S.adjustedOdds);
+  renderOddsPanel('s3-odds-panel', S.adjustedOdds);
   const voids = 100 - tot;
   $('s3-total').textContent = voids > 0
     ? `${tot} active lots · ${voids} void slot${voids !== 1 ? 's' : ''} (re-drawn if hit)`
@@ -860,18 +904,14 @@ function go3() {
   setStep(3);
 }
 
-// ── Draw logic ─────────────────────────────────────────────────────────────────
+// ── Draw ───────────────────────────────────────────────────────────────────────
 function runDraw() {
   const seedStr = $('seed-inp').value.trim();
   if (!seedStr) { alert('Enter a seed value first.'); return; }
-
   $('draw-btn').disabled = true;
 
   const rng = mkRng(hashStr(seedStr));
-
-  // Draw from the shuffled display pool so indices map directly to balls on screen
-  const drawnPicks = [];  // [{rank, ballIdx}]
-  const drawnRanks = new Set();
+  const drawnPicks = [], drawnRanks = new Set();
 
   while (drawnPicks.length < S.numLot) {
     const ballIdx = Math.floor(rng() * S.draw.length);
@@ -882,12 +922,8 @@ function runDraw() {
   }
 
   S.drawnPicks = drawnPicks;
-
-  // Full draft order: lottery picks first, then remaining in rank order (desc)
-  const li = [];
-  for (let r = S.numTeams; r >= 1; r--) li.push(r);
-  const remaining = li.filter(r => !drawnRanks.has(r));
-  S.result = [...drawnPicks.map(d => d.rank), ...remaining];
+  const li = []; for (let r = S.numTeams; r >= 1; r--) li.push(r);
+  S.result = [...drawnPicks.map(d => d.rank), ...li.filter(r => !drawnRanks.has(r))];
 
   animateDraw(drawnPicks);
 }
@@ -895,57 +931,37 @@ function runDraw() {
 function animateDraw(picks) {
   $('results-card').classList.remove('hidden');
   $('picks-list').innerHTML = '';
-
   let idx = 0;
 
   function next() {
     if (idx >= picks.length) {
-      // Non-lottery picks: instant display
-      for (let i = picks.length; i < S.result.length; i++)
-        addPickCard(i + 1, S.result[i], false);
+      for (let i = picks.length; i < S.result.length; i++) addPickCard(i + 1, S.result[i], false);
       $('draw-btn').disabled = false;
       return;
     }
-
     const { rank, ballIdx } = picks[idx];
     const winBall = $('bag-draw_' + ballIdx);
-
     if (winBall) {
-      // Animate the specific winning ballot only
       winBall.classList.add('win-anim');
-
       setTimeout(() => {
         winBall.classList.remove('win-anim');
         winBall.classList.add('drawn-winner');
         winBall.style.boxShadow = `0 0 0 2px #fff, 0 0 0 5px ${tc(rank)}`;
-
-        // Dim all OTHER balls of the same rank
         document.querySelectorAll('#bag-draw .ball').forEach(b => {
-          if (b !== winBall && parseInt(b.textContent) === rank)
-            b.classList.add('dimmed');
+          if (b !== winBall && parseInt(b.textContent) === rank) b.classList.add('dimmed');
         });
       }, 700);
     }
-
-    setTimeout(() => {
-      addPickCard(idx + 1, rank, true);
-      idx++;
-      setTimeout(next, 600);
-    }, 400);
+    setTimeout(() => { addPickCard(idx + 1, rank, true); idx++; setTimeout(next, 600); }, 400);
   }
-
   next();
 }
 
 function addPickCard(pickNum, rank, isLottery) {
-  const list  = $('picks-list');
-  const color = tc(rank);
-  const n     = S.adjustedOdds[rank] || 0;
-  const name  = teamDisplay(rank);
-  const gm    = gmDisplay(rank);
-  const total = Object.values(S.adjustedOdds).reduce((s, v) => s + v, 0);
-  const pct   = total > 0 ? (n / total * 100).toFixed(1) : '0';
-
+  const list = $('picks-list'), color = tc(rank);
+  const n    = S.adjustedOdds[rank] || 0;
+  const tot  = Object.values(S.adjustedOdds).reduce((s, v) => s + v, 0);
+  const pct  = tot > 0 ? (n / tot * 100).toFixed(1) : '0';
   const card = document.createElement('div');
   card.className = 'pick-card';
   card.style.borderLeftColor = isLottery ? color : 'var(--border)';
@@ -954,8 +970,8 @@ function addPickCard(pickNum, rank, isLottery) {
     <div class="pick-num" style="color:${isLottery ? color : 'var(--text3)'}">${pickNum}</div>
     <div class="pick-meta">
       <div class="lbl">${isLottery ? 'Lottery Pick' : 'Assigned Pick'} #${pickNum}</div>
-      <div class="name" style="color:${isLottery ? color : 'var(--text)'}">${name}</div>
-      ${gm ? `<div class="gm">${gm}</div>` : ''}
+      <div class="name" style="color:${isLottery ? color : 'var(--text)'}">${teamDisplay(rank)}</div>
+      ${gmDisplay(rank) ? `<div class="gm">${gmDisplay(rank)}</div>` : ''}
     </div>
     ${isLottery ? `<span class="pick-badge" style="background:${color}20;color:${color}">${n} lots · ${pct}%</span>` : ''}`;
   list.appendChild(card);
@@ -983,56 +999,39 @@ function go4() {
 function startReveal() {
   $('ready-card').classList.add('hidden');
   $('reveal-card').classList.remove('hidden');
-
-  const list = $('reveal-list');
-  list.innerHTML = '';
-
-  // Reveal from last pick → first pick (most dramatic last)
+  const list = $('reveal-list'); list.innerHTML = '';
   const revealOrder = [...S.result].reverse();
   let i = 0;
 
   function showNext() {
     if (i >= revealOrder.length) return;
-    const rank      = revealOrder[i];
-    const pickNum   = S.result.indexOf(rank) + 1;
-    const isLottery = pickNum <= S.numLot;
-    const color     = tc(rank);
-    const name      = teamDisplay(rank);
-    const gm        = gmDisplay(rank);
-
+    const rank = revealOrder[i], pickNum = S.result.indexOf(rank) + 1;
+    const isLottery = pickNum <= S.numLot, color = tc(rank);
     const item = document.createElement('div');
     item.className = 'reveal-item';
     item.style.background = isLottery ? color : 'var(--bg)';
     item.style.color      = isLottery ? '#fff' : 'var(--text)';
-
     item.innerHTML = `
       <div class="reveal-num" style="color:${isLottery ? 'rgba(255,255,255,.45)' : 'var(--text3)'}">${pickNum}</div>
       <div class="reveal-info">
         <div class="rlbl" style="${isLottery ? 'color:rgba(255,255,255,.6)' : 'color:var(--text2)'}">
           ${isLottery ? '🎰 Lottery Pick' : 'Pick'} #${pickNum}
         </div>
-        <div class="rname">${name}</div>
-        ${gm ? `<div class="rgm">${gm}</div>` : ''}
+        <div class="rname">${teamDisplay(rank)}</div>
+        ${gmDisplay(rank) ? `<div class="rgm">${gmDisplay(rank)}</div>` : ''}
       </div>`;
-
-    // Prepend: pick 1 ends at top
     list.insertBefore(item, list.firstChild);
     i++;
     setTimeout(showNext, isLottery ? 1000 : 200);
   }
-
   showNext();
 }
 
-// ── Copy results ───────────────────────────────────────────────────────────────
 function copyResults() {
   const lines = ['Dynasty Draft Lottery Results', '─'.repeat(32)];
   S.result.forEach((rank, i) => {
-    const pick = i + 1;
-    const isLot = pick <= S.numLot;
-    const name = teamDisplay(rank);
-    const gm   = gmDisplay(rank);
-    lines.push(`Pick #${pick}${isLot ? ' 🎰' : '   '} — ${name}${gm ? ' (' + gm + ')' : ''}`);
+    const pick = i + 1, isLot = pick <= S.numLot;
+    lines.push(`Pick #${pick}${isLot ? ' 🎰' : '   '} — ${teamDisplay(rank)}${gmDisplay(rank) ? ' (' + gmDisplay(rank) + ')' : ''}`);
   });
   navigator.clipboard.writeText(lines.join('\n'))
     .then(() => alert('Results copied to clipboard!'))
@@ -1040,7 +1039,7 @@ function copyResults() {
 }
 
 // ── Init ───────────────────────────────────────────────────────────────────────
-initConfigBanner();
+initLeagueBanner();
 </script>
 </body>
 </html>
