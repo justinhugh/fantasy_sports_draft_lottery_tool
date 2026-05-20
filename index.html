@@ -190,7 +190,14 @@
     .bar-lbl { font-size: 12px; color: var(--text2); width: 64px; text-align: right; flex-shrink: 0; }
     .bar-track { flex: 1; height: 22px; background: var(--bg); border-radius: 5px; overflow: hidden; }
     .bar-fill  { height: 100%; border-radius: 5px; transition: width .45s ease; min-width: 2px; }
-    .bar-pct   { font-size: 12px; font-weight: 500; color: var(--text2); width: 40px; flex-shrink: 0; }
+    .bar-info  { display: flex; flex-direction: column; align-items: flex-end; width: 72px; flex-shrink: 0; gap: 2px; }
+    .bar-count { font-size: 12px; font-weight: 600; color: var(--text); }
+    .bar-chance{ font-size: 11px; color: var(--text2); }
+
+    /* ── Step 3 two-column layout ──────────────────── */
+    .s3-grid { display: grid; grid-template-columns: 252px 1fr; gap: 20px; align-items: start; }
+    .s3-sticky { position: sticky; top: 24px; }
+    @media (max-width: 680px) { .s3-grid { grid-template-columns: 1fr; } .s3-sticky { position: static; } }
 
     /* ── Ballot bag ─────────────────────────────────── */
     .bag-wrap {
@@ -421,35 +428,52 @@
 
   <!-- ══════════ STEP 3 ══════════ -->
   <div id="s3" class="hidden">
-    <div class="card">
-      <div class="card-title">The Draw</div>
-      <div class="card-sub">Enter any integer as a random seed. Share it with your league so anyone can verify the result is fair and reproducible.</div>
+    <div class="s3-grid">
 
-      <div class="stats" id="draw-stats"></div>
-
-      <div class="seed-box">
-        <label for="seed-inp">Random Seed — any integer (e.g. 42, 1738, 99999)</label>
-        <div class="seed-row">
-          <input type="text" id="seed-inp" placeholder="Enter your seed...">
-          <button class="btn btn-primary btn-lg" id="draw-btn" onclick="runDraw()">Draw</button>
+      <!-- Sidebar: locked odds summary -->
+      <div class="s3-sticky">
+        <div class="card" style="padding:24px 20px;margin-bottom:0">
+          <div class="card-title" style="font-size:15px">Odds Summary</div>
+          <div style="font-size:12px;color:var(--text2);margin-bottom:16px">Final ballot distribution going into the draw.</div>
+          <div id="s3-odds-bars" class="bars"></div>
+          <div id="s3-total" style="margin-top:12px;font-size:11px;color:var(--text3);border-top:1px solid var(--border);padding-top:10px"></div>
         </div>
       </div>
 
-      <div class="section-label">The Draw Bag — 100 Ballots</div>
-      <div class="bag-wrap">
-        <div id="bag-draw" class="bag-grid"></div>
-      </div>
-    </div>
+      <!-- Main: draw interaction + results -->
+      <div>
+        <div class="card">
+          <div class="card-title">The Draw</div>
+          <div class="card-sub">Enter any integer as a random seed. Share it with your league so anyone can verify the result is fair and reproducible.</div>
 
-    <!-- Results (hidden until draw runs) -->
-    <div class="card hidden" id="results-card">
-      <div class="card-title">Lottery Results</div>
-      <div class="card-sub">Lottery picks are shown by team rank. Assign names in the next step for the full dramatic reveal.</div>
-      <div id="picks-list" class="picks"></div>
-      <div class="action-row" style="margin-top:24px">
-        <button class="btn btn-ghost2" onclick="resetDraw()">↺ Draw Again</button>
-        <button class="btn btn-primary" onclick="go4()">Assign Names & Reveal →</button>
+          <div class="stats" id="draw-stats"></div>
+
+          <div class="seed-box">
+            <label for="seed-inp">Random Seed — any integer (e.g. 42, 1738, 99999)</label>
+            <div class="seed-row">
+              <input type="text" id="seed-inp" placeholder="Enter your seed...">
+              <button class="btn btn-primary btn-lg" id="draw-btn" onclick="runDraw()">Draw</button>
+            </div>
+          </div>
+
+          <div class="section-label">The Draw Bag — 100 Ballots</div>
+          <div class="bag-wrap">
+            <div id="bag-draw" class="bag-grid"></div>
+          </div>
+        </div>
+
+        <!-- Results (hidden until draw runs) -->
+        <div class="card hidden" id="results-card">
+          <div class="card-title">Lottery Results</div>
+          <div class="card-sub">Lottery picks are shown by team rank. Assign names in the next step for the full dramatic reveal.</div>
+          <div id="picks-list" class="picks"></div>
+          <div class="action-row" style="margin-top:24px">
+            <button class="btn btn-ghost2" onclick="resetDraw()">↺ Draw Again</button>
+            <button class="btn btn-primary" onclick="go4()">Assign Names & Reveal →</button>
+          </div>
+        </div>
       </div>
+
     </div>
   </div>
 
@@ -669,6 +693,29 @@ function buildDraw(adj) {
   return draw;
 }
 
+function renderOddsBars(containerId, adj) {
+  const el = $(containerId);
+  if (!el) return;
+  el.innerHTML = '';
+  const total = Object.values(adj).reduce((s, v) => s + v, 0);
+  const ranks = Object.keys(adj).map(Number).sort((a, b) => b - a);
+  ranks.forEach(r => {
+    const n    = adj[r] || 0;
+    const pct  = total > 0 ? (n / total * 100).toFixed(1) : '0.0';
+    const barW = total > 0 ? (n / total * 100) : 0;
+    const row  = document.createElement('div');
+    row.className = 'bar-row';
+    row.innerHTML = `
+      <div class="bar-lbl">Rank #${r}</div>
+      <div class="bar-track"><div class="bar-fill" style="width:${barW}%;background:${tc(r)}"></div></div>
+      <div class="bar-info">
+        <span class="bar-count">${n} lots</span>
+        <span class="bar-chance">${pct}%</span>
+      </div>`;
+    el.appendChild(row);
+  });
+}
+
 function updateViz() {
   const adj   = computeOdds();
   const draw  = buildDraw(adj);
@@ -676,21 +723,7 @@ function updateViz() {
 
   $('total-line').textContent = `Total ballots assigned: ${total} / 100${total > 100 ? ' ⚠️ Exceeds limit!' : total < 100 ? ` (${100 - total} will be void draws)` : ' ✓'}`;
 
-  // Bars
-  const barsEl = $('odds-bars');
-  barsEl.innerHTML = '';
-  const ranks = Object.keys(adj).map(Number).sort((a, b) => b - a);
-  ranks.forEach(r => {
-    const n = adj[r] || 0;
-    const row = document.createElement('div');
-    row.className = 'bar-row';
-    row.innerHTML = `
-      <div class="bar-lbl">Rank #${r}</div>
-      <div class="bar-track"><div class="bar-fill" style="width:${n}%;background:${tc(r)}"></div></div>
-      <div class="bar-pct">${n}%</div>`;
-    barsEl.appendChild(row);
-  });
-
+  renderOddsBars('odds-bars', adj);
   renderBag('bag-preview', draw, {});
 }
 
@@ -736,6 +769,15 @@ function go3() {
   $('picks-list').innerHTML = '';
   $('seed-inp').value = '';
   renderBag('bag-draw', S.draw, {});
+
+  // Populate locked odds sidebar
+  renderOddsBars('s3-odds-bars', S.adjustedOdds);
+  const tot = Object.values(S.adjustedOdds).reduce((s, v) => s + v, 0);
+  const voids = 100 - tot;
+  $('s3-total').textContent = voids > 0
+    ? `${tot} active lots · ${voids} void slot${voids !== 1 ? 's' : ''} (re-drawn if hit)`
+    : `${tot} active lots · no void slots`;
+
   setStep(3);
 }
 
