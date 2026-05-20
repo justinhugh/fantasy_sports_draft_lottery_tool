@@ -200,6 +200,37 @@
     .reveal-info .rname { font-size: 20px; font-weight: 600; margin-top: 2px; }
     .reveal-info .rgm   { font-size: 13px; margin-top: 2px; opacity: .75; }
 
+    /* ── Spoiler ─────────────────────────────────────── */
+    .spoiler-wrap { position: relative; border-radius: var(--r-sm); }
+    .spoiler-wrap.blurred .spoiler-content {
+      filter: blur(18px) grayscale(1) brightness(.82);
+      pointer-events: none; user-select: none;
+    }
+    .spoiler-content { transition: filter .5s ease; }
+    .spoiler-tap {
+      position: absolute; inset: 0; z-index: 10;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+    }
+    .spoiler-tap-inner {
+      background: rgba(12,12,22,.68); color: #fff;
+      font-size: 13px; font-weight: 600; padding: 10px 22px;
+      border-radius: 24px; letter-spacing: .04em;
+      backdrop-filter: blur(4px);
+      box-shadow: 0 2px 20px rgba(0,0,0,.28);
+    }
+    .spoiler-wrap:not(.blurred) .spoiler-tap { display: none; }
+
+    /* ── Reveal ball stage ────────────────────────────── */
+    .rball-stage {
+      display: flex; justify-content: center; align-items: center;
+      height: 0; overflow: visible; opacity: 0;
+      transition: height .3s ease, opacity .25s ease, margin-bottom .3s ease;
+      margin-bottom: 0;
+    }
+    .rball-stage.active { height: 120px; opacity: 1; margin-bottom: 12px; }
+    .rball { width: 80px; height: 80px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 26px; font-weight: 700; color: #fff; }
+
     /* ── Misc ────────────────────────────────────────── */
     select.qf { height: 32px; font-size: 12px; padding: 0 8px; width: auto; color: var(--text2); }
   </style>
@@ -358,8 +389,15 @@
               <button class="btn btn-primary btn-lg" id="draw-btn" onclick="runDraw()">Draw</button>
             </div>
           </div>
-          <div class="section-label">The Draw Bag — 100 Ballots</div>
-          <div class="bag-wrap"><div id="bag-draw" class="bag-grid"></div></div>
+          <div id="bag-spoiler" class="spoiler-wrap">
+            <div class="spoiler-content">
+              <div class="section-label">The Draw Bag — 100 Ballots</div>
+              <div class="bag-wrap"><div id="bag-draw" class="bag-grid"></div></div>
+            </div>
+            <div class="spoiler-tap" onclick="revealSpoiler('bag-spoiler')">
+              <div class="spoiler-tap-inner">👁 Click to reveal draw bag</div>
+            </div>
+          </div>
           <div class="action-row" style="margin-top:20px">
             <button class="btn btn-ghost2" onclick="goBack3()">← Back to Odds & Teams</button>
           </div>
@@ -368,7 +406,14 @@
         <div class="card hidden" id="results-card">
           <div class="card-title">Lottery Results</div>
           <div class="card-sub">The lottery picks are in. Review below, then proceed to the reveal.</div>
-          <div id="picks-list" class="picks"></div>
+          <div id="picks-spoiler" class="spoiler-wrap">
+            <div class="spoiler-content" style="min-height:60px">
+              <div id="picks-list" class="picks"></div>
+            </div>
+            <div class="spoiler-tap" onclick="revealSpoiler('picks-spoiler')">
+              <div class="spoiler-tap-inner">👁 Click to reveal lottery results</div>
+            </div>
+          </div>
           <div class="action-row" style="margin-top:24px">
             <button class="btn btn-ghost2" onclick="resetDraw()">↺ Draw Again</button>
             <button class="btn btn-primary" onclick="go4()">Reveal Draft Order →</button>
@@ -394,6 +439,7 @@
     <div class="card hidden" id="reveal-card">
       <div class="card-title" style="text-align:center;font-size:22px;letter-spacing:-.015em">The Results Are In</div>
       <div class="card-sub" style="text-align:center">Revealed from last pick to first.</div>
+      <div id="rball-stage" class="rball-stage"></div>
       <div id="reveal-list" style="display:flex;flex-direction:column;gap:10px;margin-top:28px"></div>
       <div class="action-row" style="margin-top:28px">
         <button class="btn btn-ghost2" onclick="copyResults()">Copy Results</button>
@@ -649,6 +695,9 @@ function showResultsBannerMsg(msg, success) {
   el.style.color = success ? '#065f46' : '#92400e';
   el.classList.remove('hidden');
 }
+
+// ── Spoiler ────────────────────────────────────────────────────────────────────
+function revealSpoiler(id) { $(id).classList.remove('blurred'); }
 
 // ── Step navigation ────────────────────────────────────────────────────────────
 function go1() { setStep(1); }
@@ -922,6 +971,7 @@ function runDraw() {
   const seedStr = $('seed-inp').value.trim();
   if (!seedStr) { alert('Enter a seed value first.'); return; }
   $('draw-btn').disabled = true;
+  $('bag-spoiler').classList.add('blurred');
 
   const rng = mkRng(hashStr(seedStr));
   const drawnPicks = [], drawnRanks = new Set();
@@ -943,6 +993,7 @@ function runDraw() {
 
 function animateDraw(picks) {
   $('results-card').classList.remove('hidden');
+  $('picks-spoiler').classList.add('blurred');
   $('picks-list').innerHTML = '';
   let idx = 0;
 
@@ -997,6 +1048,8 @@ function resetDraw() {
   $('picks-list').innerHTML = '';
   $('seed-inp').value = '';
   $('draw-btn').disabled = false;
+  $('bag-spoiler').classList.remove('blurred');
+  $('picks-spoiler').classList.remove('blurred');
   renderBag('bag-draw', S.draw);
 }
 
@@ -1013,13 +1066,15 @@ function startReveal() {
   $('ready-card').classList.add('hidden');
   $('reveal-card').classList.remove('hidden');
   const list = $('reveal-list'); list.innerHTML = '';
+  const stage = $('rball-stage');
+  stage.classList.remove('active');
+  stage.innerHTML = '';
+
   const revealOrder = [...S.result].reverse();
   let i = 0;
 
-  function showNext() {
-    if (i >= revealOrder.length) return;
-    const rank = revealOrder[i], pickNum = S.result.indexOf(rank) + 1;
-    const isLottery = pickNum <= S.numLot, color = tc(rank);
+  function addRevealItem(rank, pickNum, isLottery) {
+    const color = tc(rank);
     const item = document.createElement('div');
     item.className = 'reveal-item';
     item.style.background = isLottery ? color : 'var(--bg)';
@@ -1034,8 +1089,43 @@ function startReveal() {
         ${gmDisplay(rank) ? `<div class="rgm">${gmDisplay(rank)}</div>` : ''}
       </div>`;
     list.insertBefore(item, list.firstChild);
-    i++;
-    setTimeout(showNext, isLottery ? 1000 : 200);
+  }
+
+  function showNext() {
+    if (i >= revealOrder.length) return;
+    const rank = revealOrder[i];
+    const pickNum = S.result.indexOf(rank) + 1;
+    const isLottery = pickNum <= S.numLot;
+    const color = tc(rank);
+
+    if (isLottery) {
+      // Show bouncing ball first, then reveal team card
+      stage.innerHTML = '';
+      const ballEl = document.createElement('div');
+      ballEl.className = 'rball win-anim';
+      ballEl.textContent = rank;
+      ballEl.style.cssText = `background:${color};box-shadow:0 0 0 4px #fff,0 0 0 9px ${color}80;`;
+      stage.appendChild(ballEl);
+      stage.classList.add('active');
+
+      // After ball animation settles, show the pick card
+      setTimeout(() => {
+        addRevealItem(rank, pickNum, isLottery);
+        // Collapse ball stage, then proceed to next pick
+        setTimeout(() => {
+          stage.classList.remove('active');
+          setTimeout(() => { stage.innerHTML = ''; }, 300);
+          i++;
+          setTimeout(showNext, 1400);
+        }, 800);
+      }, 750);
+    } else {
+      stage.classList.remove('active');
+      stage.innerHTML = '';
+      addRevealItem(rank, pickNum, isLottery);
+      i++;
+      setTimeout(showNext, 420);
+    }
   }
   showNext();
 }
